@@ -1,0 +1,10 @@
+.topImage {
+    background-color: aqua; 
+    display: flex;
+    justify-content: center;
+}
+
+.otherImages {
+    display: flex;
+    justify-content: space-around;
+}
