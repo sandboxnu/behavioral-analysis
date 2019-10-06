@@ -1,10 +1,32 @@
 .topImage {
-    background-color: aqua; 
     display: flex;
+    justify-content: center;
+    font-size: 8em;
+    margin-top: 5%;
+}
+
+.otherImage {
+    display: flex;
+    font-size: 8em;
     justify-content: center;
 }
 
-.otherImages {
+.otherImagesContainer {
     display: flex;
+    width: 100%;
     justify-content: space-around;
+    position: absolute;
+    bottom: 10%;
+}
+
+.matchingGameContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    background: rgba(253, 253, 253, 0.986);
+    border-radius: 0px;
+    box-shadow: 6px 6px 6px rgba(0, 0, 0, .5);
 }
