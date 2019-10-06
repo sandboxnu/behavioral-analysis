@@ -57,7 +57,6 @@ class MatchingGame extends React.Component {
     render() {
         this.shuffle(this.otherImages);
         let allImages = this.shuffle([this.state.topImage, this.otherImages[0], this.otherImages[1]]);
-        console.log("All Images: " + allImages);
         return (
             <div className="matchingGameContainer">
                 <div className="topImage">
@@ -72,6 +71,5 @@ class MatchingGame extends React.Component {
         );
     }
 }
-
 
 export default MatchingGame;
