@@ -42,10 +42,7 @@ class MatchingGame extends React.Component {
     }
 
     setOtherImages(topImage) {
-        console.log("Unfiltered other: " + images);
-        console.log("Image to remove " + topImage);
         let filtered = images.filter(image => image !== topImage);
-        console.log("Filtered other: " + filtered);
         this.otherImages = filtered;
         
     }
