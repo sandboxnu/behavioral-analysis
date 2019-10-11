@@ -32,7 +32,7 @@ class MatchingGame extends React.Component {
         } else {
             console.log("BOO");
         }
-        this.refresh(this.state.topImage);
+        this.refresh();
     }
 
     refresh() {
@@ -54,22 +54,26 @@ class MatchingGame extends React.Component {
     getRandomImage() {
         return images[Math.floor(Math.random()*images.length)];
     }
+
     render() {
         this.shuffle(this.otherImages);
         let allImages = this.shuffle([this.state.topImage, this.otherImages[0], this.otherImages[1]]);
         return (
-            <div className="matchingGameContainer">
-                <div className="topImage">
-                    <FontAwesomeIcon icon={this.state.topImage}/>
-                </div>
-                <div className="otherImagesContainer">
-                    {this.renderImage(allImages[0])}
-                    {this.renderImage(allImages[1])}
-                    {this.renderImage(allImages[2])}
+            <div id="backgroundContainer" className="backgroundContainer">
+                <div className="matchingGameContainer">
+                    <div className="topImage">
+                        <FontAwesomeIcon icon={this.state.topImage}/>
+                    </div>
+                    <div className="otherImagesContainer">
+                        {this.renderImage(allImages[0])}
+                        {this.renderImage(allImages[1])}
+                        {this.renderImage(allImages[2])}
+                    </div>
                 </div>
             </div>
+            
         );
     }
 }
 
-export default MatchingGame;
+  export default MatchingGame
