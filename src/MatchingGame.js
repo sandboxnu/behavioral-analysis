@@ -29,10 +29,16 @@ class MatchingGame extends React.Component {
     handleClick(image) {
         if (image === this.state.topImage) {
             console.log("YAY");
+            this.sendScoreDelta(1);
         } else {
             console.log("BOO");
+            //this.sendScoreDelta(0);
         }
         this.refresh();
+    }
+
+    sendScoreDelta = (delta) => {
+        this.props.parentCallback(delta);
     }
 
     refresh() {
