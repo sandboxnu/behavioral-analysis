@@ -19,9 +19,15 @@ class Warning extends React.Component {
         wrapper.classList.toggle('warning');
         if (this.state.warningSound === Sound.status.STOPPED) {
             this.setState({warningSound : Sound.status.PLAYING});
+            //this.sendScoreDelta(0);
         } else {
             this.setState({warningSound : Sound.status.STOPPED});
+            this.sendScoreDelta(-1);
         }
+    }
+
+    sendScoreDelta = (delta) => {
+        this.props.parentCallback(delta);
     }
 
     render() {
@@ -35,7 +41,7 @@ class Warning extends React.Component {
                 onLoading={this.handleSongLoading}
                 onPlaying={this.handleSongPlaying}
                 onFinishedPlaying={this.handleSongFinishedPlaying}
-                onClick />
+                />
             </div>                
         )
     }
