@@ -25,7 +25,7 @@ class Experiment extends React.Component {
         return (
         <div className="experimentContainer" id='experimentContainer'>
             <Warning
-                condition={"A"} parentCallback={this.scoreDeltaCallback}/>
+                condition={"AB"} parentCallback={this.scoreDeltaCallback}/>
             <div>Score: {this.state.score}</div>
             <MatchingGame parentCallback={this.scoreDeltaCallback}/>
         </div>
