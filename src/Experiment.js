@@ -12,6 +12,7 @@ class Experiment extends React.Component {
         super(props);
         this.state = {
             score: 0,
+            condition: "C",
         }
     }
 
@@ -21,13 +22,23 @@ class Experiment extends React.Component {
         this.setState({score: newScore});
     }
 
+    indicatorCallback = () => {
+      if (this.state.condition === "C") {
+        this.setState({ condition: "A"});
+        console.log("condition is now A");
+      } else if (this.state.condition === "D") {
+        this.setState({ condition: "B" });
+        console.log("condition is now B");
+      }
+    }
+
     render() {
         return (
         <div className="experimentContainer" id='experimentContainer'>
             <Warning
                 condition={"A"} parentCallback={this.scoreDeltaCallback}/>
             <div>Score: {this.state.score}</div>
-            <MatchingGame parentCallback={this.scoreDeltaCallback}/>
+            <MatchingGame parentCallbackScore={this.scoreDeltaCallback} parentCallbackIndicator={this.indicatorCallback} condition={this.state.condition}/>
         </div>
     );}
 }

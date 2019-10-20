@@ -38,7 +38,11 @@ class MatchingGame extends React.Component {
     }
 
     sendScoreDelta = (delta) => {
-        this.props.parentCallback(delta);
+        this.props.parentCallbackScore(delta);
+    }
+
+    sendIndicatorInteraction = () => {
+        this.props.parentCallbackIndicator();
     }
 
     refresh() {
@@ -61,12 +65,21 @@ class MatchingGame extends React.Component {
         return images[Math.floor(Math.random()*images.length)];
     }
 
+    renderIndicator(condition) {
+        if (condition === "C" || condition === "D") {
+            return (
+                <button className="indicatorButton" onClick={() => this.sendIndicatorInteraction()}>Indicator Button for condition {this.props.condition}</button>
+            )
+        }
+    }
+
     render() {
         this.shuffle(this.otherImages);
         let allImages = this.shuffle([this.state.topImage, this.otherImages[0], this.otherImages[1]]);
         return (
             <div id="backgroundContainer" className="backgroundContainer">
                 <div className="matchingGameContainer">
+                    {this.renderIndicator(this.props.condition)}
                     <div className="topImage">
                         <FontAwesomeIcon icon={this.state.topImage}/>
                     </div>

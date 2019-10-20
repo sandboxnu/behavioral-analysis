@@ -29,4 +29,57 @@
     background: rgba(253, 253, 253, 0.986);
     border-radius: 0px;
     box-shadow: 6px 6px 6px rgba(0, 0, 0, .5);
+    overflow: hidden;
+}
+
+.indicatorButton {
+    width: 190px;
+    height: 80px; 
+    border-radius: 0.1em;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    color:#FFFFFF;
+    background-color: lightsteelblue;
+    text-align: center;
+    position: relative;
+
+    left: -190px;
+    animation-name: slide;
+    animation-delay: 0s;
+    animation-duration: 3s;
+    animation-fill-mode: forwards;
+    -webkit-animation-name: slide;
+    -webkit-animation-delay: 0s;
+    -webkit-animation-duration: 3s;
+    -webkit-animation-fill-mode: forwards;
+}
+
+@keyframes fadeButton {
+    from {
+        background-color: white;
+        color: white;
+    }
+    to {
+        background-color: lightsteelblue;
+        color: white;
+    }
+}
+@-webkit-keyframes fadeButton {
+    from {
+        background-color: white;
+        color: white;
+    }
+    to {
+        background-color: lightsteelblue;
+        color: white;
+    }
+}
+
+@keyframes slide {
+    100% { left: 0px; }
+}
+@-webkit-keyframes slide {
+    100% { left: 0px; }
 }
