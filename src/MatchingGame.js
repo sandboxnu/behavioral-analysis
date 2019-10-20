@@ -1,8 +1,5 @@
 import React from 'react';
 import './MatchingGame.css';
-import { all } from 'q';
-import { useState } from 'react';
-import { isProperty, tsPropertySignature } from '@babel/types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
