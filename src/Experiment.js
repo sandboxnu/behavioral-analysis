@@ -2,10 +2,8 @@ import React from 'react';
 import './Launch.css';
 import './Experiment.css';
 import MatchingGame from './MatchingGame.js';
-import styled from 'styled-components'
 import Warning from './Warning.js';
-
-
+  
 
 class Experiment extends React.Component {
     constructor(props) {
@@ -25,9 +23,11 @@ class Experiment extends React.Component {
         return (
         <div className="experimentContainer" id='experimentContainer'>
             <Warning
-                condition={"A"} parentCallback={this.scoreDeltaCallback}/>
-            <div>Score: {this.state.score}</div>
-            <MatchingGame parentCallback={this.scoreDeltaCallback}/>
+                condition={"A"} 
+                parentCallback={this.scoreDeltaCallback} />
+            <MatchingGame 
+                parentCallback={this.scoreDeltaCallback}
+                score={this.state.score}/>
         </div>
     );}
 }

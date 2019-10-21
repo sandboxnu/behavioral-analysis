@@ -1,12 +1,41 @@
 import React from 'react';
 import './MatchingGame.css';
-import { all } from 'q';
-import { useState } from 'react';
-import { isProperty, tsPropertySignature } from '@babel/types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 
 const images = ["coffee", "rocket", "check-square", "piggy-bank"];
+
+var scoreDiv = {
+    float: 'right',
+    display: 'inline-block',
+    padding: '20px',
+    margin: '20px',
+    textAlign: 'center',
+    position: 'absolute',
+    textTransform: 'uppercase',
+    fontWeight: '400',
+    fontSize: '1em',
+    top: '0',
+    right: '0',
+    fontFamily: 'Barlow',
+};
+
+var scoreTitle = {
+    fontSize: '1em',
+    position: 'absolute',
+    top: '10px',
+    right: '15px',
+    color: '#636360',
+};
+
+var scoreNumber = {
+    fontSize: '3em',
+    position: 'absolute',
+    top: '20px',
+    right: '15px',
+    color: '#636360',
+};
+
 
 class MatchingGame extends React.Component {
     constructor(props) {
@@ -67,6 +96,10 @@ class MatchingGame extends React.Component {
         return (
             <div id="backgroundContainer" className="backgroundContainer">
                 <div className="matchingGameContainer">
+                    <div stule={scoreDiv}>
+                        <div style={scoreTitle}>SCORE</div>
+                        <div style={scoreNumber}> {this.props.score}</div>
+                    </div>
                     <div className="topImage">
                         <FontAwesomeIcon icon={this.state.topImage}/>
                     </div>
