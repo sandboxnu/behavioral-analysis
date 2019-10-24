@@ -4,6 +4,7 @@ import { all } from 'q';
 import { useState } from 'react';
 import { isProperty, tsPropertySignature } from '@babel/types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Indicator from './Indicator.js';
 
 
 const images = ["coffee", "rocket", "check-square", "piggy-bank"];
@@ -41,10 +42,6 @@ class MatchingGame extends React.Component {
         this.props.parentCallbackScore(delta);
     }
 
-    sendIndicatorInteraction = () => {
-        this.props.parentCallbackIndicator();
-    }
-
     refresh() {
         const randImage = this.getRandomImage();
         this.setState({topImage : randImage});
@@ -65,21 +62,13 @@ class MatchingGame extends React.Component {
         return images[Math.floor(Math.random()*images.length)];
     }
 
-    renderIndicator(condition) {
-        if (condition === "C" || condition === "D") {
-            return (
-                <button className="indicatorButton" onClick={() => this.sendIndicatorInteraction()}>Indicator Button for condition {this.props.condition}</button>
-            )
-        }
-    }
-
     render() {
         this.shuffle(this.otherImages);
         let allImages = this.shuffle([this.state.topImage, this.otherImages[0], this.otherImages[1]]);
         return (
             <div id="backgroundContainer" className="backgroundContainer">
                 <div className="matchingGameContainer">
-                    {this.renderIndicator(this.props.condition)}
+                    <Indicator condition={this.props.condition} parentCallbackIndicator={this.props.parentCallbackIndicator}/>
                     <div className="topImage">
                         <FontAwesomeIcon icon={this.state.topImage}/>
                     </div>
