@@ -1,6 +1,7 @@
 import React from 'react';
 import './MatchingGame.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import Indicator from './Indicator.js';
 
 
 const images = ["coffee", "rocket", "check-square", "piggy-bank"];
@@ -67,7 +68,7 @@ class MatchingGame extends React.Component {
     }
 
     sendScoreDelta = (delta) => {
-        this.props.parentCallback(delta);
+        this.props.parentCallbackScore(delta);
     }
 
     refresh() {
@@ -96,6 +97,8 @@ class MatchingGame extends React.Component {
         return (
             <div id="backgroundContainer" className="backgroundContainer">
                 <div className="matchingGameContainer">
+
+                    <Indicator condition={this.props.condition} parentCallbackIndicator={this.props.parentCallbackIndicator}/>
                     <div stule={scoreDiv}>
                         <div style={scoreTitle}>SCORE</div>
                         <div style={scoreNumber}> {this.props.score}</div>

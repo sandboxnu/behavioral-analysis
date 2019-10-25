@@ -29,4 +29,5 @@
     background: rgba(253, 253, 253, 0.986);
     border-radius: 0px;
     box-shadow: 6px 6px 6px rgba(0, 0, 0, .5);
+    overflow: hidden;
 }
