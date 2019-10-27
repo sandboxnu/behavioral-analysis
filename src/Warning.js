@@ -10,19 +10,57 @@ class Warning extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            timeLeft: 20 + Math.floor(10 * Math.random()),
             warningSound: Sound.status.STOPPED,
         }
     }
 
-    showWarning() {
+   
+    componentDidMount() {
+        this.timerID = setInterval(
+            () => this.onTick(),
+            1000 
+        );
+    }
+
+    componentWillUnmount() {
+        clearInterval(this.timerID); 
+    }
+
+    onTick() {
+
+        if (this.state.timeLeft === 5) {
+            this.toggleWarning();
+        } else if (this.state.timeLeft === 0) {
+            if ( this.userHasNotClicked() ){
+                this.toggleWarning();
+                this.sendScoreDelta(-1);
+            } else if  (this.props.condition === "B" 
+                || this.props.condition === "D") {
+                    this.sendScoreDelta(-1);
+                }
+        }
+
+        this.setState({timeLeft: this.state.timeLeft - 1});
+    }
+
+    userHasNotClicked() {
+        return this.state.warningSound === Sound.status.PLAYING;
+    }
+
+    toggleWarning() {
         const wrapper = document.getElementById('experimentContainer');
         wrapper.classList.toggle('warning');
         if (this.state.warningSound === Sound.status.STOPPED) {
             this.setState({warningSound : Sound.status.PLAYING});
-            //this.sendScoreDelta(0);
         } else {
             this.setState({warningSound : Sound.status.STOPPED});
-            this.sendScoreDelta(-1);
+        }
+    }
+
+    handleClick() {
+        if (this.state.warningSound === Sound.status.PLAYING) {
+            this.toggleWarning();
         }
     }
 
@@ -33,7 +71,7 @@ class Warning extends React.Component {
     render() {
         return (
             <div>
-                <button className="warningButton" onClick={() => this.showWarning()}>Condition {this.props.condition}</button>
+                <button className="warningButton" onClick={() => this.handleClick()}>Condition {this.props.condition}</button>
                 <Sound 
                 url={soundfile}
                 playStatus={this.state.warningSound}
