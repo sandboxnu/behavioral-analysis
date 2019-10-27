@@ -32,14 +32,20 @@ class Warning extends React.Component {
         if (this.state.timeLeft === 5) {
             this.toggleWarning();
         } else if (this.state.timeLeft === 0) {
-            if (this.state.warningSound === Sound.status.PLAYING 
-                || this.props.condition === "B" 
-                || this.props.condition === "D" ) {
+            if ( this.userHasNotClicked() ){
+                this.toggleWarning();
+                this.sendScoreDelta(-1);
+            } else if  (this.props.condition === "B" 
+                || this.props.condition === "D") {
                     this.sendScoreDelta(-1);
                 }
         }
 
         this.setState({timeLeft: this.state.timeLeft - 1});
+    }
+
+    userHasNotClicked() {
+        return this.state.warningSound === Sound.status.PLAYING;
     }
 
     toggleWarning() {
