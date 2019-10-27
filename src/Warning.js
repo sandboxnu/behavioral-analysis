@@ -10,7 +10,7 @@ class Warning extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            timeLeft: 16,
+            timeLeft: 20 + Math.floor(10 * Math.random()),
             warningSound: Sound.status.STOPPED,
         }
     }
@@ -30,7 +30,6 @@ class Warning extends React.Component {
     onTick() {
 
         if (this.state.timeLeft === 5) {
-            this.setState({warningSound : Sound.status.PLAYING});
             this.toggleWarning();
         } else if (this.state.timeLeft === 0) {
             if (this.state.warningSound === Sound.status.PLAYING 
@@ -46,12 +45,16 @@ class Warning extends React.Component {
     toggleWarning() {
         const wrapper = document.getElementById('experimentContainer');
         wrapper.classList.toggle('warning');
+        if (this.state.warningSound === Sound.status.STOPPED) {
+            this.setState({warningSound : Sound.status.PLAYING});
+        } else {
+            this.setState({warningSound : Sound.status.STOPPED});
+        }
     }
 
     handleClick() {
         if (this.state.warningSound === Sound.status.PLAYING) {
             this.toggleWarning();
-            this.setState({warningSound : Sound.status.STOPPED});
         }
     }
 
