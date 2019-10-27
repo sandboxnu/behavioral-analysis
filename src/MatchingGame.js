@@ -48,8 +48,6 @@ class MatchingGame extends React.Component {
         this.otherImages = images.filter(image => image !== this.state.topImage);
     }
 
-    
-
     renderImage(image) {
         return (
         <div className="otherImage" >
