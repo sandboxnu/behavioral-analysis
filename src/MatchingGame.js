@@ -9,8 +9,8 @@ const images = ["coffee", "rocket", "check-square", "piggy-bank"];
 var scoreDiv = {
     float: 'right',
     display: 'inline-block',
-    padding: '20px',
-    margin: '20px',
+    padding: '5px',
+    margin: '5px',
     textAlign: 'center',
     position: 'absolute',
     textTransform: 'uppercase',
@@ -99,7 +99,7 @@ class MatchingGame extends React.Component {
                 <div className="matchingGameContainer">
 
                     <Indicator condition={this.props.condition} parentCallbackIndicator={this.props.parentCallbackIndicator}/>
-                    <div stule={scoreDiv}>
+                    <div style={scoreDiv}>
                         <div style={scoreTitle}>SCORE</div>
                         <div style={scoreNumber}> {this.props.score}</div>
                     </div>
