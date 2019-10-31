@@ -3,7 +3,6 @@ import './MatchingGame.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Indicator from './Indicator.js';
 
-
 const images = ["coffee", "rocket", "check-square", "piggy-bank"];
 
 var scoreDiv = {
