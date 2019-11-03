@@ -1,0 +1,32 @@
+.experimentContainer {
+    position: absolute;
+    top: 0%;
+    left: 0%;
+    width: 100%;
+    height: 100%;
+    border-radius: 0px;
+    background-color: lightcoral;
+}
+  
+.experimentContainer.warning {
+    animation-name: warning;
+    animation-delay: 0s;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite; 
+    -webkit-animation-name: warning;
+    -webkit-animation-delay: 0s;
+    -webkit-animation-duration: 1.5s;
+    -webkit-animation-iteration-count: infinite; 
+  }
+  
+  @keyframes warning {
+    0% {background-color: lightcoral;}
+    50% {background-color: rgb(255, 191, 191);}
+    100% {background-color: rgb(226, 85, 85);}
+  }
+  
+  @-webkit-keyframes warning {
+    0% {background-color: lightcoral;}
+    50% {background-color: rgb(255, 191, 191);}
+    100% {background-color: rgb(226, 85, 85)}
+  }
