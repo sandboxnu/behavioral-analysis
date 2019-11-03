@@ -5,7 +5,7 @@ import styled, {keyframes} from 'styled-components';
 
 const images = ["coffee", "rocket", "check-square", "piggy-bank"];
 
-const Score = styled.div`
+const Score = styled.div` 
     float: 'right',
     display: 'inline-block',
     padding: '5px',

@@ -1,6 +1,6 @@
 import React from 'react';
 import './Experiment.css';
-import MatchingGame from './MatchingGame.js';
+import MatchingGame from './MatchingGame.js/index.js';
 import Warning from './Warning.js';
   
 

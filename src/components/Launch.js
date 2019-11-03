@@ -1,5 +1,5 @@
 import React from 'react';
-import Experiment from './Experiment.js'
+import Experiment from './components/Experiment.js/index.js'
 
 function Launch() {
   return (
