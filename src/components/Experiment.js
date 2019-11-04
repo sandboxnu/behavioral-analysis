@@ -1,5 +1,4 @@
 import React from 'react';
-import './Launch.css';
 import './Experiment.css';
 import MatchingGame from './MatchingGame.js';
 import Warning from './Warning.js';

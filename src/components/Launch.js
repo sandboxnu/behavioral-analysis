@@ -1,5 +1,4 @@
 import React from 'react';
-import './Launch.css';
 import Experiment from './Experiment.js'
 
 function Launch() {

@@ -4,7 +4,7 @@ import './Warning.css';
 import { all } from 'q';
 import { useState } from 'react';
 import { isProperty, tsPropertySignature } from '@babel/types';
-import soundfile from './testSound.mp3';
+import soundfile from '../assets/testSound.mp3';
 
 class Warning extends React.Component {
     constructor(props) {
@@ -14,7 +14,6 @@ class Warning extends React.Component {
             warningSound: Sound.status.STOPPED,
         }
     }
-
    
     componentDidMount() {
         this.timerID = setInterval(
@@ -28,7 +27,6 @@ class Warning extends React.Component {
     }
 
     onTick() {
-
         if (this.state.timeLeft === 5) {
             this.toggleWarning();
         } else if (this.state.timeLeft === 0) {
@@ -40,7 +38,6 @@ class Warning extends React.Component {
                     this.sendScoreDelta(-1);
                 }
         }
-
         this.setState({timeLeft: this.state.timeLeft - 1});
     }
 

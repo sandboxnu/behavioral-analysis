@@ -1,24 +1,24 @@
 import React from 'react';
-import './MatchingGame.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Indicator from './Indicator.js';
+import styled, {keyframes} from 'styled-components';
 
 const images = ["coffee", "rocket", "check-square", "piggy-bank"];
 
-var scoreDiv = {
+const Score = styled.div` 
     float: 'right',
     display: 'inline-block',
     padding: '5px',
     margin: '5px',
-    textAlign: 'center',
+    text-align: 'center',
     position: 'absolute',
-    textTransform: 'uppercase',
-    fontWeight: '400',
-    fontSize: '1em',
+    text-transform: 'uppercase',
+    font-weight: '400',
+    font-size: '1em',
     top: '0',
     right: '0',
-    fontFamily: 'Barlow',
-};
+    font-family: 'Barlow',
+`;
 
 var scoreTitle = {
     fontSize: '1em',
@@ -36,6 +36,39 @@ var scoreNumber = {
     color: '#636360',
 };
 
+const TopImage = styled.div`
+    display: flex;
+    justify-content: center;
+    font-size: 8em;
+    margin-top: 5%;
+`;
+
+const BottomImage = styled.div`
+    display: flex;
+    font-size: 8em;
+    justify-content: center;
+`;
+
+const BottomImageContainer = styled.div`
+    display: flex;
+    width: 100%;
+    justify-content: space-around;
+    position: absolute;
+    bottom: 10%;
+`;
+
+const MatchingGameContainer = styled.div`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    background: rgba(253, 253, 253, 0.986);
+    border-radius: 0px;
+    box-shadow: 6px 6px 6px rgba(0, 0, 0, .5);
+    overflow: hidden;
+`;
 
 class MatchingGame extends React.Component {
     constructor(props) {
@@ -50,9 +83,9 @@ class MatchingGame extends React.Component {
 
     renderImage(image) {
         return (
-        <div className="otherImage" >
+        <BottomImage>
             <FontAwesomeIcon icon={image} onClick={() => this.handleClick(image)}/>
-        </div>)
+        </BottomImage>)
     }
 
     handleClick(image) {
@@ -95,22 +128,21 @@ class MatchingGame extends React.Component {
         let allImages = this.shuffle([this.state.topImage, this.otherImages[0], this.otherImages[1]]);
         return (
             <div id="backgroundContainer" className="backgroundContainer">
-                <div className="matchingGameContainer">
-
+                <MatchingGameContainer>
                     <Indicator condition={this.props.condition} parentCallbackIndicator={this.props.parentCallbackIndicator}/>
-                    <div style={scoreDiv}>
+                    <Score>
                         <div style={scoreTitle}>SCORE</div>
                         <div style={scoreNumber}> {this.props.score}</div>
-                    </div>
-                    <div className="topImage">
+                    </Score>
+                    <TopImage>
                         <FontAwesomeIcon icon={this.state.topImage}/>
-                    </div>
-                    <div className="otherImagesContainer">
+                    </TopImage>
+                    <BottomImageContainer>
                         {this.renderImage(allImages[0])}
                         {this.renderImage(allImages[1])}
                         {this.renderImage(allImages[2])}
-                    </div>
-                </div>
+                    </BottomImageContainer>
+                </MatchingGameContainer>
             </div>
             
         );
