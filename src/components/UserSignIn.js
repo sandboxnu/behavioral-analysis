@@ -1,12 +1,12 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import '../css/LaunchScreen.css';
 
 class UserInfoForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "John Appleseed",
-      dob: "01/05/1999"
+      name: "Your Name",
+      dob: ""
     };
 
     this.handleFormChange = this.handleFormChange.bind(this);
@@ -19,7 +19,7 @@ class UserInfoForm extends React.Component {
     const name = target.name;
 
     this.setState({
-      [name]: value 
+      [name]: value
     });
   }
 
@@ -31,13 +31,13 @@ class UserInfoForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label> Name: <input name="name" type="text" value={this.state.name} onChange={this.handleFormChange}/>
+        <label> Name: <input name="name" type="text" value={this.state.name} onChange={this.handleFormChange} />
         </label>
-        <br/>
-        <label> Date of Birth mm/dd/yyyy: <input name="dob" type="text" value={this.state.dob} onChange={this.handleFormChange}/>
+        <br />
+        <label> Date of Birth: <input name="dob" type="date" value={this.state.dob} min="1819-11-10" onChange={this.handleFormChange} />
         </label>
-        <br/>
-        <input type="submit" value="Submit"/>
+        <br />
+        <input type="submit" value="Submit" />
       </form>
     )
   }
@@ -54,16 +54,18 @@ class UserSignIn extends Component {
 
   renderLaunchScreen() {
     return (
-      <div class="launchContainer">
-        <div class="launchTitle"> Behavioral Analysis</div>
-        <div class="launchSubtitle">[Insert Subtitle]</div>
-        <UserInfoForm/>
+      <div className="launchScreen">
+        <div className="launchContainer">
+          <div className="launchTitle"> Behavioral Analysis</div>
+          <div className="launchSubtitle">Please enter your information below.</div>
+          <UserInfoForm />
+        </div>
       </div>
     );
   }
 
   render() {
-    return(
+    return (
       <div>
         {this.renderLaunchScreen()}
       </div>
