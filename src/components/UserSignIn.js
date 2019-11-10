@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import '../css/LaunchScreen.css';
+import '../css/SignInScreen.css';
 
 class UserInfoForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "Your Name",
-      dob: ""
+      userId: "Your ID",
     };
 
     this.handleFormChange = this.handleFormChange.bind(this);
@@ -24,19 +23,15 @@ class UserInfoForm extends React.Component {
   }
 
   handleSubmit(e) {
-    console.log(this.state.name + this.state.dob)
+    console.log(this.state.userId)
     e.preventDefault();
   }
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <label> Name: <input name="name" type="text" value={this.state.name} onChange={this.handleFormChange} />
-        </label>
-        <br />
-        <label> Date of Birth: <input name="dob" type="date" value={this.state.dob} min="1819-11-10" onChange={this.handleFormChange} />
-        </label>
-        <br />
+        <input name="userId" type="text" value={this.state.userId} onChange={this.handleFormChange}/>
+        <br/>
         <input type="submit" value="Submit" />
       </form>
     )
@@ -52,12 +47,12 @@ class UserSignIn extends Component {
     };
   }
 
-  renderLaunchScreen() {
+  renderSignInScreen() {
     return (
-      <div className="launchScreen">
-        <div className="launchContainer">
-          <div className="launchTitle"> Behavioral Analysis</div>
-          <div className="launchSubtitle">Please enter your information below.</div>
+      <div className="signInScreen">
+        <div className="signInContainer">
+          <div className="signInTitle"> Behavioral Analysis</div>
+          <div className="signInSubtitle">Enter your assigned ID.</div>
           <UserInfoForm />
         </div>
       </div>
@@ -67,7 +62,7 @@ class UserSignIn extends Component {
   render() {
     return (
       <div>
-        {this.renderLaunchScreen()}
+        {this.renderSignInScreen()}
       </div>
     )
   }
