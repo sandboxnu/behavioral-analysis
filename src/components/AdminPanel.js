@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Form from 'react-jsonschema-form-bs4';
 import Fetch from 'react-fetch-component';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDownload } from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components';
 import schema from '../ConfigValuesSchema';
 
@@ -31,9 +32,6 @@ class AdminPanel extends Component {
         const file = new File([JSON.stringify(formData)], 'config.json');
         const form = new FormData();
         form.append('file', file);
-        for (var entry of form.entries()) {
-            console.log(entry[0] + ', ' + entry[1]);
-        }
     }
 
     onChange({ formData }) {
@@ -58,9 +56,9 @@ class AdminPanel extends Component {
         return null;
     }
 
-    //TODO: onPassword()
+    //TODO: implement onPassword()
 
-    // TODO: implement 
+    // TODO: implement downloadData()
     downloadData() {
         console.log("Clicked download!")
     }
@@ -71,7 +69,7 @@ class AdminPanel extends Component {
             <PanelContainer className="panel container">
                 <h2>Download collected data</h2>
                 <DownloadButton onClick={() => { this.downloadData(); }} type="button" className="btn btn-primary">
-                    <FontAwesomeIcon icon={"download"}/>
+                    <FontAwesomeIcon icon={faDownload}/>
                     {' '}
                     Download collected data
                 </DownloadButton>
@@ -88,11 +86,11 @@ class AdminPanel extends Component {
         );
     }
 
-    // TODO: Add authentication check
+    // TODO: add authentication
     render() {
         return (
             <div>
-                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"/>
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossOrigin="anonymous"/>
                 <Fetch url={`${SERVER_URL}/experiment`} as="json" onDataChange={d => this.onServerData(d)}>
                         {() => this.renderPanel()}
                 </Fetch>
