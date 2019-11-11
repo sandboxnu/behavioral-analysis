@@ -1,5 +1,31 @@
 import React, { Component } from 'react';
-import '../css/SignInScreen.css';
+import styled from 'styled-components';
+
+const SignInScreen = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+`;
+
+const SignInTitle = styled.div`
+  margin-bottom: 0.25em;
+  font-size: 4em;
+  color: #f7b733;
+`
+const SignInSubtitle = styled.div`
+  margin-bottom: 1.5em;
+  font-size: 1em;
+  margin: auto; 
+  width: 30em;
+  margin-bottom: 2em;
+  color: #393e47;
+`
+const SignInContainer = styled.div`
+  margin: auto;
+  text-align: center;
+`
+
 
 class UserInfoForm extends React.Component {
   constructor(props) {
@@ -49,13 +75,13 @@ class UserSignIn extends Component {
 
   renderSignInScreen() {
     return (
-      <div className="signInScreen">
-        <div className="signInContainer">
-          <div className="signInTitle"> Behavioral Analysis</div>
-          <div className="signInSubtitle">Enter your assigned ID.</div>
+      <SignInScreen>
+        <SignInContainer>
+          <SignInTitle> Behavioral Analysis</SignInTitle>
+          <SignInSubtitle>Enter your assigned ID.</SignInSubtitle>
           <UserInfoForm />
-        </div>
-      </div>
+        </SignInContainer>
+      </SignInScreen>
     );
   }
 
