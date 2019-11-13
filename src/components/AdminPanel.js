@@ -18,6 +18,37 @@ const DownloadButton = styled.button`
     margin-bottom: '20'
 `;
 
+class UserIdForm extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {value: ''};
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleChange(e) {
+        this.setState({value: e.target.value});
+    }
+
+    handleSubmit(e) {
+        console.log(this.state.value);
+        e.preventDefault();
+    }
+
+    render() {
+        return (
+            <form onSubmit={this.handleSubmit}>
+                
+                <input type="text" value={this.state.value} onChange={this.handleChange}/>{' '}
+                <DownloadButton type="submit" className="btn btn-primary">
+                    <FontAwesomeIcon icon={faDownload}/>{' '}
+                    Download data for given userId
+                </DownloadButton>
+            </form>
+        );
+    }
+}
+
 class AdminPanel extends Component {
     constructor(props) {
         super(props);
@@ -67,12 +98,15 @@ class AdminPanel extends Component {
         const { formData } = this.state;
         return (
             <PanelContainer className="panel container">
-                <h2>Download collected data</h2>
+                <h2>Download all collected data</h2>
                 <DownloadButton onClick={() => { this.downloadData(); }} type="button" className="btn btn-primary">
                     <FontAwesomeIcon icon={faDownload}/>
                     {' '}
-                    Download collected data
+                    Download all collected data
                 </DownloadButton>
+                <hr/>
+                <h2>Download data for given userId</h2>
+                <UserIdForm/>
                 <hr/>
                 <h2>Configure Experiment</h2>
                 <Form
