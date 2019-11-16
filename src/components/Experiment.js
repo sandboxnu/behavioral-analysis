@@ -16,6 +16,7 @@ class Experiment extends React.Component {
     scoreDeltaCallback = (delta) => {
         let currScore= this.state.score;
         let newScore = currScore + delta;
+        newScore = Math.max(0, newScore)
         this.setState({score: newScore});
     }
 
