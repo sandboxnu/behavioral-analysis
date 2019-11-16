@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
+import Launch from './Launch';
 import styled from 'styled-components';
 
 const SignInScreen = styled.div`
@@ -31,7 +33,7 @@ class UserInfoForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      userId: "Your ID",
+      userId: '',
     };
 
     this.handleFormChange = this.handleFormChange.bind(this);
@@ -50,15 +52,16 @@ class UserInfoForm extends React.Component {
 
   handleSubmit(e) {
     console.log(this.state.userId)
+    ReactDOM.render(<Launch />, document.getElementById('root'));
     e.preventDefault();
   }
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <input name="userId" type="text" value={this.state.userId} onChange={this.handleFormChange}/>
+        <input name='userId' type='text' placeholder='Your ID' value={this.state.userId} onChange={this.handleFormChange}/>
         <br/>
-        <input type="submit" value="Submit" />
+        <input type='submit' value='Submit' />
       </form>
     )
   }
