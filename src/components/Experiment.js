@@ -4,10 +4,18 @@ import MatchingGame from './MatchingGame.js';
 import Warning from './Warning.js';
   
 
+const gameState = {
+    MATCHING_GAME: 'match',
+    WARNING: 'warning',
+    LOSS_OF_POINTS: 'lop',
+    SHOW_INDICATOR: 'indicator'
+}
 class Experiment extends React.Component {
     constructor(props) {
         super(props);
         this.gameTime = 0;
+        this.gameState = gameState.MATCHING_GAME;
+        this.lopStart = 30;
 
         this.state = {
             score: 0,
@@ -29,15 +37,23 @@ class Experiment extends React.Component {
     }
 
     onTick() {
-        this.gameTime += 1;
         console.log(this.gameTime);
-        if (this.gameTime == 10) {
+        this.gameTime += 1;
+        if (this.gameTime === this.lopStart - 5) {
             this.toggleWarning();
+            this.gameState = gameState.WARNING;
+        } else if (this.gameTime === this.lopStart) {
+            this.toggleWarning();
+            this.gameState = gameState.LOSS_OF_POINTS;
+        } else {
+            this.gameState = gameState.MATCHING_GAME;
+            // TODO: GENERATE NEW LOP START
         }
+        this.updateGameValues();
+    }
 
-        if (this.gameTime == 15) {
-            this.toggleWarning();
-        }
+    updateGameValues() {
+        // TODO: LOSS OF POINTS IF IN RIGHT CONDITION AND in LOP STATE
     }
 
     scoreDeltaCallback = (delta) => {
@@ -63,6 +79,10 @@ class Experiment extends React.Component {
         })
         const wrapper = document.getElementById('experimentContainer');
         wrapper.classList.toggle('warning');
+    }
+
+    onClickWarning() {
+        // TODO: Disable loss of points depending on the condition
     }
 
     render() {

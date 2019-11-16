@@ -11,19 +11,6 @@ class Warning extends React.Component {
         super(props);
     }
 
-    userHasNotClicked() {
-        return this.state.warningSound === Sound.status.PLAYING;
-    }
-
-    handleClick() {
-       
-    }
-
-
-    sendScoreDelta = (delta) => {
-        this.props.parentCallback(delta);
-    }
-
     render() {
         let playStatus = Sound.status.STOPPED;
         if (this.props.isWarningEnabled) {
