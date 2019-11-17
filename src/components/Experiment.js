@@ -2,7 +2,6 @@ import React from 'react';
 import './Experiment.css';
 import MatchingGame from './MatchingGame.js';
 import Warning from './Warning.js';
-  
 
 const gameState = {
     MATCHING_GAME: 'match',
@@ -14,8 +13,8 @@ class Experiment extends React.Component {
     constructor(props) {
         super(props);
         this.gameTime = 0;
-        this.gameState = gameState.MATCHING_GAME;
-        this.lopStart = 30;
+        this.currentGameState = gameState.MATCHING_GAME;
+        this.lopStart = 10;
 
         this.state = {
             score: 0,
@@ -41,19 +40,33 @@ class Experiment extends React.Component {
         this.gameTime += 1;
         if (this.gameTime === this.lopStart - 5) {
             this.toggleWarning();
-            this.gameState = gameState.WARNING;
+            this.currentGameState = gameState.WARNING;
+            console.log("Start Warning " + this.currentGameState);
         } else if (this.gameTime === this.lopStart) {
             this.toggleWarning();
-            this.gameState = gameState.LOSS_OF_POINTS;
-        } else {
-            this.gameState = gameState.MATCHING_GAME;
-            // TODO: GENERATE NEW LOP START
+            this.currentGameState = gameState.LOSS_OF_POINTS;
+            console.log("Start LOP " + this.currentGameState);
+        } else if (this.gameTime === this.lopStart + 5) {
+            this.currentGameState = gameState.MATCHING_GAME;
+            this.setNewLOPTime();
+            console.log("END LOP. New LOP Start: " + this.lopStart);
+        } else if (this.gameTime === this.lopStart + 10) {
+            this.currentGameState = gameState.MATCHING_GAME;
         }
         this.updateGameValues();
     }
 
     updateGameValues() {
+        console.log("Update game values: " + this.currentGameState);
         // TODO: LOSS OF POINTS IF IN RIGHT CONDITION AND in LOP STATE
+        if (this.currentGameState === gameState.LOSS_OF_POINTS) {
+            this.scoreDeltaCallback(-1);
+        }
+    }
+
+    setNewLOPTime() {
+        // Change to use configured time
+        this.lopStart = this.gameTime + 20;
     }
 
     scoreDeltaCallback = (delta) => {
