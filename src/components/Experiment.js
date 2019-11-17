@@ -105,7 +105,6 @@ class Experiment extends React.Component {
 
     onClickWarning() {
         console.log("ON CLICK WARNING ");
-        console.log(this);
         if (this.state.warningEnabled) {
             this.interactedWithWarningFlag = true;
             this.toggleWarning();
