@@ -1,0 +1,63 @@
+{
+    "description": "Behavioral Analysis Configuration values",
+    "type": "object",
+    "properties": {
+        "warningDuration": {
+            "type": "integer",
+            "description": "Duration of warning in seconds"
+        },
+        "warningStartLowerBound": {
+            "type": "integer",
+            "description": "The minimum time at which the warning may start"
+        },
+        "warningStartUpperBound": {
+            "type": "integer",
+            "description": "The maximum time at which the warning may end"
+        },
+        "pointsPerDecrement": {
+            "type": "integer",
+            "description": "Number of points per score decrement"
+        },
+        "secondsUntilPointDecrement": {
+            "type": "integer",
+            "description": "Seconds until point decrement"
+        },
+        "conditionDuration": {
+            "type": "integer",
+            "description": "Condition length"
+        },
+        "soundOn": {
+            "type": "boolean",
+            "description": "Whether sound is on"
+        },
+        "conditionAColor": {
+            "type": "string",
+            "description": "Color for condition A"
+        },
+        "conditionBColor": {
+            "type": "string",
+            "description": "Color for condition B"
+        },
+        "conditionCColor": {
+            "type": "string",
+            "description": "Color for condition C"
+        },
+        "conditionDColor": {
+            "type": "string",
+            "description": "Color for condition D"
+        }
+    },
+    "required": [
+        "warningDuration",
+        "warningStartLowerBound",
+        "warningStartUpperBound",
+        "pointsPerDecrement",
+        "secondsUntilPointDecrement",
+        "conditionDuration",
+        "soundOn",
+        "conditionAColor",
+        "conditionBColor",
+        "conditionCColor",
+        "conditionDColor"
+    ]
+}
