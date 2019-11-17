@@ -48,7 +48,7 @@ class ConfigValuesController {
     }
 
     getLossOfPointsStart() {
-        return Math.floor(Math.random() * (getLossOfPointsUpperBound() - getLossOfPointsLowerBound()) + getLossOfPointsLowerBound()) ;
+        return Math.floor(Math.random() * (this.getLossOfPointsUpperBound() - this.getLossOfPointsLowerBound()) + this.getLossOfPointsLowerBound()) ;
     }
 
     getLossOfPointsLowerBound() {
