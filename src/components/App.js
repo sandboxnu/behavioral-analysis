@@ -1,6 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import Launch from './Launch';
+import UserSignIn from './UserSignIn';
 import AdminPanel from './AdminPanel';
 
 function AppRouter() {
@@ -8,7 +8,7 @@ function AppRouter() {
         <Router>
             <div className='App'>
                 <Route path='/admin' exact component={AdminPanel}/>
-                <Route path='/' exact component={Launch}/>
+                <Route path='/' exact component={UserSignIn}/>
             </div>
         </Router>
     );
