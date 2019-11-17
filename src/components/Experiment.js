@@ -3,6 +3,10 @@ import './Experiment.css';
 import MatchingGame from './MatchingGame.js';
 import Warning from './Warning.js';
 import ConfigValueController from '../ConfigValueController';
+import styled from 'styled-components';
+
+const ExperimentContainer = styled.div`
+`
 
 const gameState = {
     MATCHING_GAME: 'match',
@@ -10,6 +14,7 @@ const gameState = {
     LOSS_OF_POINTS: 'lop',
     SHOW_INDICATOR: 'indicator'
 }
+
 class Experiment extends React.Component {
     constructor(props) {
         super(props);
@@ -115,8 +120,11 @@ class Experiment extends React.Component {
     }
 
     render() {
+        // TODO: Add a method in the ConfigValueController with sig: Condition -> String HEX code 
+        // TODO: Add variable to this line for current color according to condition.
         return (
-        <div className="experimentContainer" id='experimentContainer' onClick={this.onClickWarning.bind(this)}>
+        // Add styled component, control color with prop for ea of four conditions.
+        <div className="experimentContainer" id='experimentContainer' style={{backgroundColor : '#0000ff'}} onClick={this.onClickWarning.bind(this)}>
             <Warning
                 condition={this.state.condition} 
                 parentCallback={this.scoreDeltaCallback}
