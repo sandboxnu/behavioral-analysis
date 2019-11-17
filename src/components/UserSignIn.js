@@ -38,6 +38,13 @@ const SubmitButton = styled.input`
   border-radius: .5em;
   border: none;
 `
+const UserIdInput = styled.input`
+  background-color: white;
+  color: black;
+  padding: .5em
+  border-radius: .3em;
+  border: 1px solid black;
+`
 
 
 class UserInfoForm extends React.Component {
@@ -76,7 +83,7 @@ class UserInfoForm extends React.Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <input name='userId' type='text' placeholder='Your ID' value={this.state.userId} onChange={this.handleFormChange}/>
+        <UserIdInput name='userId' type='text' placeholder='Your ID' value={this.state.userId} onChange={this.handleFormChange}/>
         <br/>
         <SubmitButton type='submit' value='Submit' />
         {this.state.isIDEmpty ? <UserPrompt>No ID entered. Please enter your ID.</UserPrompt> : <span></span>}
