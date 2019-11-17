@@ -20,7 +20,7 @@ class Experiment extends React.Component {
         this.state = {
             score: 0,
             originalCondition: "A",
-            condition: "C",
+            condition: "A",
             warningEnabled: false,
             shouldShowIndicator: false,
         }
@@ -65,7 +65,13 @@ class Experiment extends React.Component {
         console.log("Update game values: " + this.currentGameState);
         // TODO: LOSS OF POINTS IF IN RIGHT CONDITION AND in LOP STATE
         if (this.currentGameState === gameState.LOSS_OF_POINTS) {
-            this.scoreDeltaCallback(-1);
+            if (this.state.condition === 'A') {
+                if (!this.interactedWithWarningFlag) {
+                    this.scoreDeltaCallback(-1);
+                } 
+            } else if (this.state.condition === 'B') {
+                this.scoreDeltaCallback(-1);
+            }
         }
     }
 
