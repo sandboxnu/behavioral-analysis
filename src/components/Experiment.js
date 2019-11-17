@@ -55,8 +55,6 @@ class Experiment extends React.Component {
             this.currentGameState = gameState.MATCHING_GAME;
             this.setNewLOPTime();
             console.log("END LOP. New LOP Start: " + this.lopStart);
-        } else if (this.gameTime === this.lopStart + 10) {
-            this.currentGameState = gameState.MATCHING_GAME;
         }
         this.updateGameValues();
     }
