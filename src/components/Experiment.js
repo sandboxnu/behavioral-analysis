@@ -15,12 +15,14 @@ class Experiment extends React.Component {
         this.gameTime = 0;
         this.currentGameState = gameState.MATCHING_GAME;
         this.lopStart = 10;
+        this.interactedWithWarningFlag = false;
 
         this.state = {
             score: 0,
             originalCondition: "A",
             condition: "C",
-            warningEnabled: false
+            warningEnabled: false,
+            shouldShowIndicator: false,
         }
     }
 
@@ -43,10 +45,13 @@ class Experiment extends React.Component {
             this.currentGameState = gameState.WARNING;
             console.log("Start Warning " + this.currentGameState);
         } else if (this.gameTime === this.lopStart) {
-            this.toggleWarning();
+            if (this.state.warningEnabled) {
+                this.toggleWarning();
+            }
             this.currentGameState = gameState.LOSS_OF_POINTS;
             console.log("Start LOP " + this.currentGameState);
         } else if (this.gameTime === this.lopStart + 5) {
+            this.interactedWithWarningFlag = false;
             this.currentGameState = gameState.MATCHING_GAME;
             this.setNewLOPTime();
             console.log("END LOP. New LOP Start: " + this.lopStart);
@@ -65,7 +70,7 @@ class Experiment extends React.Component {
     }
 
     setNewLOPTime() {
-        // Change to use configured time
+        // TODO: Change to use configured time
         this.lopStart = this.gameTime + 20;
     }
 
@@ -95,12 +100,17 @@ class Experiment extends React.Component {
     }
 
     onClickWarning() {
-        // TODO: Disable loss of points depending on the condition
+        console.log("ON CLICK WARNING ");
+        console.log(this);
+        if (this.state.warningEnabled) {
+            this.interactedWithWarningFlag = true;
+            this.toggleWarning();
+        }
     }
 
     render() {
         return (
-        <div className="experimentContainer" id='experimentContainer'>
+        <div className="experimentContainer" id='experimentContainer' onClick={this.onClickWarning.bind(this)}>
             <Warning
                 condition={this.state.condition} 
                 parentCallback={this.scoreDeltaCallback}
@@ -111,6 +121,7 @@ class Experiment extends React.Component {
                 score={this.state.score} 
                 parentCallbackIndicator={this.indicatorCallback} 
                 condition={this.state.condition}
+                shouldShowIndicator={this.state.shouldShowIndicator}
             />
         </div>
     );}

@@ -122,11 +122,20 @@ class MatchingGame extends React.Component {
         return images[Math.floor(Math.random()*images.length)];
     }
 
+    onClickContainer(e) {
+        // Prevent the parent from seeing the onclick
+        e.stopPropagation();
+    }
+
     render() {
         return (
             <div id="backgroundContainer" className="backgroundContainer">
-                <MatchingGameContainer>
-                    <Indicator condition={this.props.condition} parentCallbackIndicator={this.props.parentCallbackIndicator}/>
+                <MatchingGameContainer onClick={this.onClickContainer}>
+                    <Indicator 
+                        condition={this.props.condition} 
+                        parentCallbackIndicator={this.props.parentCallbackIndicator}
+                        shouldShowIndicator={this.props.shouldShowIndicator}
+                    />
                     <Score>
                         <div style={scoreTitle}>SCORE</div>
                         <div style={scoreNumber}> {this.props.score}</div>
