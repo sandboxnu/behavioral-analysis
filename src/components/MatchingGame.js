@@ -79,6 +79,8 @@ class MatchingGame extends React.Component {
         };
 
         this.otherImages = images.filter(image => image !== this.state.topImage);
+        this.shuffle(this.otherImages);
+        this.allImages = this.shuffle([this.state.topImage, this.otherImages[0], this.otherImages[1]]);
     }
 
     renderImage(image) {
@@ -106,13 +108,10 @@ class MatchingGame extends React.Component {
     refresh() {
         const randImage = this.getRandomImage();
         this.setState({topImage : randImage});
-        this.setOtherImages(randImage);
-    }
-
-    setOtherImages(topImage) {
-        let filtered = images.filter(image => image !== topImage);
+        let filtered = images.filter(image => image !== randImage);
         this.otherImages = filtered;
-        
+        this.shuffle(this.otherImages);
+        this.allImages = this.shuffle([randImage, this.otherImages[0], this.otherImages[1]]);
     }
 
     shuffle(arrayOfImages) {
@@ -124,8 +123,6 @@ class MatchingGame extends React.Component {
     }
 
     render() {
-        this.shuffle(this.otherImages);
-        let allImages = this.shuffle([this.state.topImage, this.otherImages[0], this.otherImages[1]]);
         return (
             <div id="backgroundContainer" className="backgroundContainer">
                 <MatchingGameContainer>
@@ -138,9 +135,9 @@ class MatchingGame extends React.Component {
                         <FontAwesomeIcon icon={this.state.topImage}/>
                     </TopImage>
                     <BottomImageContainer>
-                        {this.renderImage(allImages[0])}
-                        {this.renderImage(allImages[1])}
-                        {this.renderImage(allImages[2])}
+                        {this.renderImage(this.allImages[0])}
+                        {this.renderImage(this.allImages[1])}
+                        {this.renderImage(this.allImages[2])}
                     </BottomImageContainer>
                 </MatchingGameContainer>
             </div>
