@@ -18,14 +18,13 @@ class Warning extends React.Component {
         }
         return (
             <div>
-                <button className="warningButton" onClick={() => this.handleClick()}>Condition {this.props.condition}</button>
                 <Sound 
-                url={soundfile}
-                playStatus={playStatus}
-                playFromPosition={0 /* in milliseconds */}
-                onLoading={this.handleSongLoading}
-                onPlaying={this.handleSongPlaying}
-                onFinishedPlaying={this.handleSongFinishedPlaying}
+                    url={soundfile}
+                    playStatus={playStatus}
+                    playFromPosition={0 /* in milliseconds */}
+                    onLoading={this.handleSongLoading}
+                    onPlaying={this.handleSongPlaying}
+                    onFinishedPlaying={this.handleSongFinishedPlaying}
                 />
             </div>                
         )
