@@ -6,21 +6,21 @@
             "type": "integer",
             "description": "Duration of warning in seconds"
         },
-        "warningStartLowerBound": {
+        "lossOfPointsLowerBound": {
             "type": "integer",
-            "description": "The minimum time at which the warning may start"
+            "description": "The minimum point decrement"
         },
-        "warningStartUpperBound": {
+        "lossOfPointsUpperBound": {
             "type": "integer",
-            "description": "The maximum time at which the warning may end"
+            "description": "The maximum point decrement"
         },
         "pointsPerDecrement": {
             "type": "integer",
             "description": "Number of points per score decrement"
         },
-        "secondsUntilPointDecrement": {
+        "durationOfLossOfPoints": {
             "type": "integer",
-            "description": "Seconds until point decrement"
+            "description": "Seconds for point decrement"
         },
         "conditionDuration": {
             "type": "integer",
@@ -49,10 +49,10 @@
     },
     "required": [
         "warningDuration",
-        "warningStartLowerBound",
-        "warningStartUpperBound",
+        "lossOfPointsLowerBound",
+        "lossOfPointsUpperBound",
         "pointsPerDecrement",
-        "secondsUntilPointDecrement",
+        "durationOfLossOfPoints",
         "conditionDuration",
         "soundOn",
         "conditionAColor",

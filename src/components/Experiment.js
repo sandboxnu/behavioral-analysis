@@ -2,6 +2,7 @@ import React from 'react';
 import './Experiment.css';
 import MatchingGame from './MatchingGame.js';
 import Warning from './Warning.js';
+import ConfigValueController from '../ConfigValueController';
 
 const gameState = {
     MATCHING_GAME: 'match',
@@ -14,8 +15,9 @@ class Experiment extends React.Component {
         super(props);
         this.gameTime = 0;
         this.currentGameState = gameState.MATCHING_GAME;
-        this.lopStart = 10;
+        this.lopStart = 0;
         this.interactedWithWarningFlag = false;
+        this.setNewLOPTime();
 
         this.state = {
             score: 0,
@@ -40,7 +42,7 @@ class Experiment extends React.Component {
     onTick() {
         console.log(this.gameTime);
         this.gameTime += 1;
-        if (this.gameTime === this.lopStart - 5) {
+        if (this.gameTime === this.lopStart - ConfigValueController.getWarningDuration()) {
             this.toggleWarning();
             this.currentGameState = gameState.WARNING;
             console.log("Start Warning " + this.currentGameState);
@@ -50,7 +52,7 @@ class Experiment extends React.Component {
             }
             this.currentGameState = gameState.LOSS_OF_POINTS;
             console.log("Start LOP " + this.currentGameState);
-        } else if (this.gameTime === this.lopStart + 5) {
+        } else if (this.gameTime === this.lopStart + ConfigValueController.getDurationOfLossOfPoints()) {
             this.interactedWithWarningFlag = false;
             this.currentGameState = gameState.MATCHING_GAME;
             this.setNewLOPTime();
@@ -60,22 +62,22 @@ class Experiment extends React.Component {
     }
 
     updateGameValues() {
+        const pointsPerDec = ConfigValueController.getPointsPerDecrement() * -1;
         console.log("Update game values: " + this.currentGameState);
         // TODO: LOSS OF POINTS IF IN RIGHT CONDITION AND in LOP STATE
         if (this.currentGameState === gameState.LOSS_OF_POINTS) {
             if (this.state.condition === 'A') {
                 if (!this.interactedWithWarningFlag) {
-                    this.scoreDeltaCallback(-1);
+                    this.scoreDeltaCallback(pointsPerDec);
                 } 
             } else if (this.state.condition === 'B') {
-                this.scoreDeltaCallback(-1);
+                this.scoreDeltaCallback(pointsPerDec);
             }
         }
     }
 
     setNewLOPTime() {
-        // TODO: Change to use configured time
-        this.lopStart = this.gameTime + 20;
+        this.lopStart = this.gameTime + ConfigValueController.getLossOfPointsStart();
     }
 
     scoreDeltaCallback = (delta) => {
