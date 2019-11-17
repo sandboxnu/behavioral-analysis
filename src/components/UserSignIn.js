@@ -27,6 +27,17 @@ const SignInContainer = styled.div`
   margin: auto;
   text-align: center;
 `
+const UserPrompt = styled.div`
+  color: red;
+`
+const SubmitButton = styled.input`
+  background-color: #f7b733;
+  color: white;
+  padding: .5em;
+  margin: .5em;
+  border-radius: .5em;
+  border: none;
+`
 
 
 class UserInfoForm extends React.Component {
@@ -34,6 +45,7 @@ class UserInfoForm extends React.Component {
     super(props);
     this.state = {
       userId: '',
+      isIDEmpty: false
     };
 
     this.handleFormChange = this.handleFormChange.bind(this);
@@ -52,16 +64,22 @@ class UserInfoForm extends React.Component {
 
   handleSubmit(e) {
     console.log(this.state.userId)
-    ReactDOM.render(<Launch />, document.getElementById('root'));
+    if (this.state.userId.length > 0) {
+      ReactDOM.render(<Launch />, document.getElementById('root'));   
+    } else {
+      this.setState({isIDEmpty: true});
+    }
     e.preventDefault();
   }
+  
 
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
         <input name='userId' type='text' placeholder='Your ID' value={this.state.userId} onChange={this.handleFormChange}/>
         <br/>
-        <input type='submit' value='Submit' />
+        <SubmitButton type='submit' value='Submit' />
+        {this.state.isIDEmpty ? <UserPrompt>No ID entered. Please enter your ID.</UserPrompt> : <span></span>}
       </form>
     )
   }
