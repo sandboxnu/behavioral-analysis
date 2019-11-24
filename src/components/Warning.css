@@ -1,22 +1,22 @@
 @keyframes warning {
-    0% {background-color: lightcoral;}
-    50% {background-color: rgb(255, 191, 191);}
-    100% {background-color: rgb(226, 85, 85);}
+  0% {opacity: 0.5;}
+  50% {opacity: 0.25;}
+  100% {opacity: 1;} 
   }
 
-  @-webkit-keyframes warning {
-    0% {background-color: lightcoral;}
-    50% {background-color: rgb(255, 191, 191);}
-    100% {background-color: rgb(226, 85, 85);}
-  }
+@-webkit-keyframes warning {
+  0% {opacity: 0.5;}
+  50% {opacity: 0.25;}
+  100% {opacity: 1;} 
+}
     
-    button.warningButton {
-        display: inline-block;
-        width: 190px;
-        height: 80px;
-        padding: 0.7em 1.4em;
-        margin: 0 0.3em 0.3em 0;
-        border-radius: 0.1em;
+button.warningButton {
+  display: inline-block;
+  width: 190px;
+  height: 80px;
+  padding: 0.7em 1.4em;
+  margin: 0 0.3em 0.3em 0;
+  border-radius: 0.1em;
         box-sizing: border-box;
         text-decoration: none;
         font-family: 'Roboto', sans-serif;

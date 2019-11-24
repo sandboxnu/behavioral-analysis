@@ -59,6 +59,7 @@ const BottomImageContainer = styled.div`
 
 const MatchingGameContainer = styled.div`
     position: absolute;
+    opacity: 1;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);

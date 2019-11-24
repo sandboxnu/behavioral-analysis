@@ -87,6 +87,22 @@ class ConfigValuesController {
         return this.conditionDColor;
     }
 
+    getColorForCondition(condition) {
+        switch(condition) {
+            case "A":
+                return this.conditionAColor;
+                break;
+            case "B":
+                return this.conditionBColor;
+                break;
+            case "C":
+                return this.conditionCColor;
+                break;
+            case "D":
+                return this.conditionDColor;
+        }
+    }
+
     getConfigurableValues() {
         return ({
             warningDuration: this.warningDuration,
