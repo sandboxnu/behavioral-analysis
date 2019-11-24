@@ -41,6 +41,7 @@ class Indicator extends React.Component {
 
     renderIndicator() {
         if ((this.props.condition === "C" || this.props.condition === "D") && this.props.shouldShowIndicator) {
+            this.props.parentCallbackIndicatorAppeared();
             return (
                 <IndicatorButton 
                     textColor="white" 

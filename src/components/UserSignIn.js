@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Launch from './Launch';
 import styled from 'styled-components';
+import DataBuilder from './DataBuilder';
 
 const SignInScreen = styled.div`
   display: flex;
@@ -70,7 +71,7 @@ class UserInfoForm extends React.Component {
   }
 
   handleSubmit(e) {
-    console.log(this.state.userId)
+    console.log(this.state.userId);
     if (this.state.userId.length > 0) {
       ReactDOM.render(<Launch />, document.getElementById('root'));   
     } else {
@@ -79,6 +80,7 @@ class UserInfoForm extends React.Component {
     e.preventDefault();
   }
   
+
 
   render() {
     return (
