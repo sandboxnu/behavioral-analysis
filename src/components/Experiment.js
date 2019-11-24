@@ -66,7 +66,7 @@ class Experiment extends React.Component {
                 console.log("Warning Skipped");
             }
         } else if (this.gameTime === this.lopStart) {
-            if (this.state.warning) {
+            if (this.state.warningEnabled) {
                 this.toggleWarning();
             }
             this.currentGameState = gameState.LOSS_OF_POINTS;
