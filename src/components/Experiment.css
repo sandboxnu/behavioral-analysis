@@ -1,19 +1,19 @@
 .experimentContainer {
-    position: absolute;
-    top: 0%;
-    left: 0%;
-    width: 100%;
-    height: 100%;
-    border-radius: 0px;
+  position: absolute;
+  top: 0%;
+  left: 0%;
+  width: 100%;
+  height: 100%;
+  border-radius: 0px;
 }
   
 .experimentContainer.warning {
-    animation-name: warning;
-    animation-delay: 0s;
-    animation-duration: 1.5s;
-    animation-iteration-count: infinite; 
-    -webkit-animation-name: warning;
-    -webkit-animation-delay: 0s;
-    -webkit-animation-duration: 1.5s;
-    -webkit-animation-iteration-count: infinite; 
+  animation-name: warning;
+  animation-delay: 0s;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite; 
+  -webkit-animation-name: warning;
+  -webkit-animation-delay: 0s;
+  -webkit-animation-duration: 1.5s;
+  -webkit-animation-iteration-count: infinite; 
   }
