@@ -7,22 +7,29 @@ const gameState = {
     MATCHING_GAME: 'match',
     WARNING: 'warning',
     LOSS_OF_POINTS: 'lop',
-    SHOW_INDICATOR: 'indicator'
 }
+
 class Experiment extends React.Component {
     constructor(props) {
         super(props);
+
+        let startCondition = "C";
         this.gameTime = 0;
         this.currentGameState = gameState.MATCHING_GAME;
         this.lopStart = 10;
         this.interactedWithWarningFlag = false;
+        this.indicatorShowingTimer = 0;
+        let indicatorFlag = false;
+        if (startCondition === "C" || startCondition === "D") {
+            indicatorFlag = true;
+        }
 
         this.state = {
             score: 0,
-            originalCondition: "A",
-            condition: "A",
+            originalCondition: startCondition,
+            condition: startCondition,
             warningEnabled: false,
-            shouldShowIndicator: false,
+            shouldShowIndicator: indicatorFlag,
         }
     }
 
@@ -40,10 +47,15 @@ class Experiment extends React.Component {
     onTick() {
         console.log(this.gameTime);
         this.gameTime += 1;
+    
         if (this.gameTime === this.lopStart - 5) {
-            this.toggleWarning();
-            this.currentGameState = gameState.WARNING;
-            console.log("Start Warning " + this.currentGameState);
+            if (this.state.condition === 'A' || this.state.condition === 'B') {
+                this.toggleWarning();
+                this.currentGameState = gameState.WARNING;
+                console.log("Start Warning " + this.currentGameState);
+            } else {
+                console.log("Warning Skipped");
+            }
         } else if (this.gameTime === this.lopStart) {
             if (this.state.warningEnabled) {
                 this.toggleWarning();
@@ -53,7 +65,7 @@ class Experiment extends React.Component {
         } else if (this.gameTime === this.lopStart + 5) {
             this.interactedWithWarningFlag = false;
             this.currentGameState = gameState.MATCHING_GAME;
-            this.setNewLOPTime();
+            this.setUpNewTrial();
             console.log("END LOP. New LOP Start: " + this.lopStart);
         }
         this.updateGameValues();
@@ -61,7 +73,15 @@ class Experiment extends React.Component {
 
     updateGameValues() {
         console.log("Update game values: " + this.currentGameState);
-        // TODO: LOSS OF POINTS IF IN RIGHT CONDITION AND in LOP STATE
+        if (this.isSwitchOverConditions() && this.state.shouldShowIndicator) {
+            this.indicatorShowingTimer += 1;
+            // TODO: Update with configured amount
+            if (this.indicatorShowingTimer >= 10) {
+                this.indicatorShowingTimer = 0;
+                this.setState({shouldShowIndicator: false});
+            }
+        }
+
         if (this.currentGameState === gameState.LOSS_OF_POINTS) {
             if (this.state.condition === 'A') {
                 if (!this.interactedWithWarningFlag) {
@@ -69,7 +89,31 @@ class Experiment extends React.Component {
                 } 
             } else if (this.state.condition === 'B') {
                 this.scoreDeltaCallback(-1);
+            } else if (this.state.condition === 'C') {
+                this.scoreDeltaCallback(-1);
+            } else if (this.state.condition === 'D') {
+                this.scoreDeltaCallback(-1);
             }
+            
+        }
+    }
+
+    setUpNewTrial() {
+        this.indicatorShowingTimer = 0;
+        this.setNewLOPTime();
+        this.showIndicatorIfNeeded();
+        this.setState({
+            condition: this.state.originalCondition
+        })
+    }
+
+    isSwitchOverConditions() {
+        return this.state.originalCondition === "C" || this.state.originalCondition === "D";
+    }
+
+    showIndicatorIfNeeded() {
+        if (this.isSwitchOverConditions()) {
+            this.setState({shouldShowIndicator: true});
         }
     }
 
@@ -87,10 +131,18 @@ class Experiment extends React.Component {
 
     indicatorCallback = () => {
       if (this.state.originalCondition === "C") {
-        this.setState({ condition: "A"});
+        this.indicatorShowingTimer = 0;
+        this.setState({ 
+            condition: "A",
+            shouldShowIndicator: false
+        });
         console.log("condition is now A");
       } else if (this.state.originalCondition === "D") {
-        this.setState({ condition: "B" });
+        this.indicatorShowingTimer = 0;
+        this.setState({ 
+            condition: "B",
+            shouldShowIndicator: false 
+        });
         console.log("condition is now B");
       }
     }
@@ -105,7 +157,6 @@ class Experiment extends React.Component {
 
     onClickWarning() {
         console.log("ON CLICK WARNING ");
-        console.log(this);
         if (this.state.warningEnabled) {
             this.interactedWithWarningFlag = true;
             this.toggleWarning();
@@ -113,6 +164,7 @@ class Experiment extends React.Component {
     }
 
     render() {
+        console.log(this.state.shouldShowIndicator);
         return (
         <div className="experimentContainer" id='experimentContainer' onClick={this.onClickWarning.bind(this)}>
             <Warning
