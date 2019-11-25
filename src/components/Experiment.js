@@ -2,6 +2,7 @@ import React from 'react';
 import './Experiment.css';
 import MatchingGame from './MatchingGame.js';
 import Warning from './Warning.js';
+import ConfigValueController from '../ConfigValueController';
 
 const gameState = {
     MATCHING_GAME: 'match',
@@ -24,6 +25,8 @@ class Experiment extends React.Component {
             indicatorFlag = true;
         }
 
+
+
         this.state = {
             score: 0,
             originalCondition: startCondition,
@@ -36,18 +39,24 @@ class Experiment extends React.Component {
     componentDidMount() {
         this.timerID = setInterval(
             () => this.onTick(),
-            1000 
+            1000
         );
     }
 
     componentWillUnmount() {
-        clearInterval(this.timerID); 
+        clearInterval(this.timerID);
     }
 
     onTick() {
         console.log(this.gameTime);
         this.gameTime += 1;
-    
+
+        if (this.gameTime == 1) {
+            const wrapper = document.getElementById('experimentContainer');
+            wrapper.classList.toggle('warning');
+        }
+
+
         if (this.gameTime === this.lopStart - 5) {
             if (this.state.condition === 'A' || this.state.condition === 'B') {
                 this.toggleWarning();
@@ -78,7 +87,7 @@ class Experiment extends React.Component {
             // TODO: Update with configured amount
             if (this.indicatorShowingTimer >= 10) {
                 this.indicatorShowingTimer = 0;
-                this.setState({shouldShowIndicator: false});
+                this.setState({ shouldShowIndicator: false });
             }
         }
 
@@ -86,7 +95,7 @@ class Experiment extends React.Component {
             if (this.state.condition === 'A') {
                 if (!this.interactedWithWarningFlag) {
                     this.scoreDeltaCallback(-1);
-                } 
+                }
             } else if (this.state.condition === 'B') {
                 this.scoreDeltaCallback(-1);
             } else if (this.state.condition === 'C') {
@@ -94,7 +103,7 @@ class Experiment extends React.Component {
             } else if (this.state.condition === 'D') {
                 this.scoreDeltaCallback(-1);
             }
-            
+
         }
     }
 
@@ -113,7 +122,7 @@ class Experiment extends React.Component {
 
     showIndicatorIfNeeded() {
         if (this.isSwitchOverConditions()) {
-            this.setState({shouldShowIndicator: true});
+            this.setState({ shouldShowIndicator: true });
         }
     }
 
@@ -123,37 +132,37 @@ class Experiment extends React.Component {
     }
 
     scoreDeltaCallback = (delta) => {
-        let currScore= this.state.score;
+        let currScore = this.state.score;
         let newScore = currScore + delta;
         newScore = Math.max(0, newScore)
-        this.setState({score: newScore});
+        this.setState({ score: newScore });
     }
 
     indicatorCallback = () => {
-      if (this.state.originalCondition === "C") {
-        this.indicatorShowingTimer = 0;
-        this.setState({ 
-            condition: "A",
-            shouldShowIndicator: false
-        });
-        console.log("condition is now A");
-      } else if (this.state.originalCondition === "D") {
-        this.indicatorShowingTimer = 0;
-        this.setState({ 
-            condition: "B",
-            shouldShowIndicator: false 
-        });
-        console.log("condition is now B");
-      }
+        if (this.state.originalCondition === "C") {
+            this.indicatorShowingTimer = 0;
+            this.setState({
+                condition: "A",
+                shouldShowIndicator: false
+            });
+            console.log("condition is now A");
+        } else if (this.state.originalCondition === "D") {
+            this.indicatorShowingTimer = 0;
+            this.setState({
+                condition: "B",
+                shouldShowIndicator: false
+            });
+            console.log("condition is now B");
+        }
     }
 
-    toggleWarning() {
-        this.setState({
-            warningEnabled: !this.state.warningEnabled
-        })
-        const wrapper = document.getElementById('experimentContainer');
-        wrapper.classList.toggle('warning');
-    }
+    // toggleWarning() {
+    //     this.setState({
+    //         warningEnabled: !this.state.warningEnabled
+    //     })
+    //     const wrapper = document.getElementById('experimentContainer');
+    //     wrapper.classList.toggle('warning');
+    // }
 
     onClickWarning() {
         console.log("ON CLICK WARNING ");
@@ -163,24 +172,29 @@ class Experiment extends React.Component {
         }
     }
 
+    // To test this out you can change the string for color on line 180
+    // Uncomment toggleWarning() before merge!!
     render() {
         console.log(this.state.shouldShowIndicator);
         return (
-        <div className="experimentContainer" id='experimentContainer' onClick={this.onClickWarning.bind(this)}>
-            <Warning
-                condition={this.state.condition} 
-                parentCallback={this.scoreDeltaCallback}
-                isWarningEnabled={this.state.warningEnabled}
-            />
-            <MatchingGame 
-                parentCallbackScore={this.scoreDeltaCallback} 
-                score={this.state.score} 
-                parentCallbackIndicator={this.indicatorCallback} 
-                condition={this.state.condition}
-                shouldShowIndicator={this.state.shouldShowIndicator}
-            />
-        </div>
-    );}
+            <div>
+                <div style={{ backgroundColor: "green" }} className="experimentContainer" id='experimentContainer' onClick={this.onClickWarning.bind(this)}>
+                    <Warning
+                        condition={this.state.condition}
+                        parentCallback={this.scoreDeltaCallback}
+                        isWarningEnabled={this.state.warningEnabled}
+                    />
+                </div>
+                <MatchingGame
+                    parentCallbackScore={this.scoreDeltaCallback}
+                    score={this.state.score}
+                    parentCallbackIndicator={this.indicatorCallback}
+                    condition={this.state.condition}
+                    shouldShowIndicator={this.state.shouldShowIndicator}
+                />
+            </div>
+        );
+    }
 }
 
 export default Experiment;
