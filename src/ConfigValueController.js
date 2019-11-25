@@ -17,33 +17,18 @@ class ConfigValuesController {
     }
    
     update(configValues) {
-        let testConfigValues = {
-            warningDuration: 5,
-            indicatorDuration: 10,
-            lossOfPointsStartLowerBound: 20,
-            lossOfPointsStartUpperBound: 30,
-            pointsPerDecrement: 1,
-            pointsDecrementDuration: 10,
-            conditionDuration: 600,
-            soundOn: true,
-            conditionAColor: 'blue',
-            conditionBColor: 'red',
-            conditionCColor: 'yellow',
-            conditionDColor: 'green'
-        };
-
-        this.warningDuration = _.get(testConfigValues, "warningDuration", 5);
-        this.indicatorDuration = _.get(testConfigValues, "indicatorDuration", 10);
-        this.lossOfPointsStartLowerBound = _.get(testConfigValues, "lossOfPointsStartLowerBound", 20);
-        this.lossOfPointsStartUpperBound = _.get(testConfigValues, "lossOfPointsStartUpperBound", 30);
-        this.pointsPerDecrement = _.get(testConfigValues, "pointsPerDecrement", 1);
-        this.pointsDecrementDuration = _.get(testConfigValues, "pointsDecrementDuration", 10);
-        this.conditionDuration = _ .get(testConfigValues, "conditionDuration", 600);
-        this.soundOn = _.get(testConfigValues, "soundOn", true);
-        this.conditionAColor = _.get(testConfigValues, "conditionAColor", "blue");
-        this.conditionBColor = _.get(testConfigValues, "conditionBColor", "red");
-        this.conditionCColor = _.get(testConfigValues, "conditionCColor", "yellow");
-        this.conditionDColor = _ .get(testConfigValues, "conditionDColor", "green");
+        this.warningDuration = _.get(configValues, "warningDuration", 5);
+        this.indicatorDuration = _.get(configValues, "indicatorDuration", 10);
+        this.lossOfPointsStartLowerBound = _.get(configValues, "lossOfPointsStartLowerBound", 20);
+        this.lossOfPointsStartUpperBound = _.get(configValues, "lossOfPointsStartUpperBound", 30);
+        this.pointsPerDecrement = _.get(configValues, "pointsPerDecrement", 1);
+        this.pointsDecrementDuration = _.get(configValues, "pointsDecrementDuration", 10);
+        this.conditionDuration = _ .get(configValues, "conditionDuration", 600);
+        this.soundOn = _.get(configValues, "soundOn", true);
+        this.conditionAColor = _.get(configValues, "conditionAColor", "blue");
+        this.conditionBColor = _.get(configValues, "conditionBColor", "red");
+        this.conditionCColor = _.get(configValues, "conditionCColor", "yellow");
+        this.conditionDColor = _ .get(configValues, "conditionDColor", "green");
     }
 
     getWarningDuration() {

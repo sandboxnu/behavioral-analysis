@@ -14,13 +14,14 @@ class Experiment extends React.Component {
     constructor(props) {
         super(props);
 
-        let startCondition = "C";
+        let startCondition = this.props.condition;
         this.gameTime = 0;
         this.currentGameState = gameState.MATCHING_GAME;
         this.lopStart = ConfigValueController.getPointsDecrementDuration();
         this.interactedWithWarningFlag = false;
         this.indicatorShowingTimer = 0;
         let indicatorFlag = false;
+        this.backgroundColor = ConfigValueController.getColorForCondition(startCondition);
         if (startCondition === "C" || startCondition === "D") {
             indicatorFlag = true;
         }
@@ -169,13 +170,10 @@ class Experiment extends React.Component {
         }
     }
 
-    // To test this out you can change the string for color on line 180
-    // Uncomment toggleWarning() before merge!!
     render() {
-        console.log(this.state.shouldShowIndicator);
         return (
             <div>
-                <div style={{ backgroundColor: "green" }} className="experimentContainer" id='experimentContainer' onClick={this.onClickWarning.bind(this)}>
+                <div style={{ backgroundColor: this.backgroundColor }} className="experimentContainer" id='experimentContainer' onClick={this.onClickWarning.bind(this)}>
                     <Warning
                         condition={this.state.condition}
                         parentCallback={this.scoreDeltaCallback}

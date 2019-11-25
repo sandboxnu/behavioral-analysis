@@ -46,7 +46,6 @@ class Indicator extends React.Component {
                     textColor="white" 
                     backgroundColor="lightsteelblue" 
                     className="indicatorButton" onClick={() => this.sendIndicatorInteraction()}>
-                        Indicator Button for condition {this.props.condition}
                 </IndicatorButton>
             )
         }
