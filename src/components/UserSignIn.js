@@ -102,12 +102,16 @@ class UserSignIn extends Component {
   }
 
   renderSignInScreen() {
+    let condition = this.props.condition;
+    if (this.props.condition == null) {
+      condition = "A";
+    }
     return (
       <SignInScreen>
         <SignInContainer>
           <SignInTitle> Behavioral Analysis</SignInTitle>
           <SignInSubtitle>Enter your assigned ID.</SignInSubtitle>
-          <UserInfoForm condition={this.props.condition}/>
+          <UserInfoForm condition={condition}/>
         </SignInContainer>
       </SignInScreen>
     );

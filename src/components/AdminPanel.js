@@ -5,8 +5,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDownload } from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components';
 import schema from '../ConfigValuesSchema';
+import Axios from 'axios';
 
-const SERVER_URL = 'https://api.sandboxneu.com/test/';
+const SERVER_URL = 'https://api.sandboxnu.com';
 
 const PanelContainer = styled.div`
     padding-top: '25',
@@ -72,6 +73,7 @@ class AdminPanel extends Component {
     }
 
     onServerData(data) {
+        console.log(data);
         this.setState({
             configOnServer: data,
             formData: data,
@@ -122,10 +124,16 @@ class AdminPanel extends Component {
 
     // TODO: add authentication
     render() {
+
+        Axios.get(`${SERVER_URL}/config`)
+            .then(response => response.json())
+            .then(json => console.log(json));
+
         return (
             <div>
                 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossOrigin="anonymous"/>
-                <Fetch url={`${SERVER_URL}/experiment`} as="json" onDataChange={d => this.onServerData(d)}>
+                <Fetch url={`${SERVER_URL}/config`} as="json" onDataChange={d => this.onServerData(d) }
+                       mode="CORS">
                         {() => this.renderPanel()}
                 </Fetch>
             </div>
