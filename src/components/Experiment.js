@@ -17,7 +17,8 @@ class Experiment extends React.Component {
         let startCondition = this.props.condition;
         this.gameTime = 0;
         this.currentGameState = gameState.MATCHING_GAME;
-        this.lopStart = ConfigValueController.getPointsDecrementDuration();
+        this.lopStart = ConfigValueController.getLossOfPointsStart();
+        console.log(this.lopStart);
         this.interactedWithWarningFlag = false;
         this.indicatorShowingTimer = 0;
         let indicatorFlag = false;

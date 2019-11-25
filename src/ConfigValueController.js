@@ -10,10 +10,10 @@ class ConfigValuesController {
         this.pointsDecrementDuration = 10;
         this.conditionDuration = 600;
         this.soundOn = true;
-        this.conditionAColor = 'blue';
-        this.conditionBColor = 'red';
-        this.conditionCColor = 'yellow';
-        this.conditionDColor = 'green';
+        this.conditionAColor = '#a6cff5';
+        this.conditionBColor = '#e87474';
+        this.conditionCColor = '#84b5ab';
+        this.conditionDColor = '#b8f5be';
     }
    
     update(configValues) {
@@ -25,10 +25,10 @@ class ConfigValuesController {
         this.pointsDecrementDuration = _.get(configValues, "pointsDecrementDuration", 10);
         this.conditionDuration = _ .get(configValues, "conditionDuration", 600);
         this.soundOn = _.get(configValues, "soundOn", true);
-        this.conditionAColor = _.get(configValues, "conditionAColor", "blue");
-        this.conditionBColor = _.get(configValues, "conditionBColor", "red");
-        this.conditionCColor = _.get(configValues, "conditionCColor", "yellow");
-        this.conditionDColor = _ .get(configValues, "conditionDColor", "green");
+        this.conditionAColor = _.get(configValues, "conditionAColor", "#a6cff5");
+        this.conditionBColor = _.get(configValues, "conditionBColor", "#e87474");
+        this.conditionCColor = _.get(configValues, "conditionCColor", "#84b5ab");
+        this.conditionDColor = _ .get(configValues, "conditionDColor", "#b8f5be");
     }
 
     getWarningDuration() {
@@ -40,7 +40,7 @@ class ConfigValuesController {
     }
 
     getLossOfPointsStart() {
-        return (Math.random() * (this.getLossOfPointsStartUpperBound() - this.getLossofPointsStartLowerBound()))  + this.getLossofPointsStartLowerBound();
+        return Math.floor((Math.random() * (this.getLossOfPointsStartUpperBound() - this.getLossofPointsStartLowerBound()))  + this.getLossofPointsStartLowerBound());
     }
 
     getLossofPointsStartLowerBound() {
