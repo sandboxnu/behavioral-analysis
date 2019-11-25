@@ -56,7 +56,7 @@ class ConfigValuesController {
     }
 
     getPointsDecrementDuration() {
-        return this.secondsUntilPointDecrement;
+        return this.pointsDecrementDuration;
     }
 
     getConditionDuration() {
