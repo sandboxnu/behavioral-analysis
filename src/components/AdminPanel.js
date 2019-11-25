@@ -61,9 +61,7 @@ class AdminPanel extends Component {
 
     // TODO: post form data, add authenication
     onSubmit({ formData }) {
-        const file = new File([JSON.stringify(formData)], 'config.json');
-        const form = new FormData();
-        form.append('file', file);
+        Axios.post(`${SERVER_URL}/config`, formData);
     }
 
     onChange({ formData }) {
