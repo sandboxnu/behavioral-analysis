@@ -128,6 +128,7 @@ class Experiment extends React.Component {
 
     setNewLOPTime() {
         this.lopStart = this.gameTime + ConfigValueController.getLossOfPointsStart();
+        console.log("New LOP START" + this.lopStart);
     }
 
     scoreDeltaCallback = (delta) => {
