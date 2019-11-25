@@ -173,7 +173,12 @@ class Experiment extends React.Component {
     render() {
         return (
             <div>
-                <div style={{ backgroundColor: this.backgroundColor }} className="experimentContainer" id='experimentContainer' onClick={this.onClickWarning.bind(this)}>
+                <div 
+                    style={{ backgroundColor: this.backgroundColor }} 
+                    className="experimentContainer" 
+                    id='experimentContainer' 
+                    onClick={this.onClickWarning.bind(this)}
+                    >
                     <Warning
                         condition={this.state.condition}
                         parentCallback={this.scoreDeltaCallback}
