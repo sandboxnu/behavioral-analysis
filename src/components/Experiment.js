@@ -14,18 +14,18 @@ class Experiment extends React.Component {
     constructor(props) {
         super(props);
 
-        let startCondition = "C";
+        let startCondition = this.props.condition;
         this.gameTime = 0;
         this.currentGameState = gameState.MATCHING_GAME;
-        this.lopStart = 10;
+        this.lopStart = ConfigValueController.getLossOfPointsStart();
+        console.log(this.lopStart);
         this.interactedWithWarningFlag = false;
         this.indicatorShowingTimer = 0;
         let indicatorFlag = false;
+        this.backgroundColor = ConfigValueController.getColorForCondition(startCondition);
         if (startCondition === "C" || startCondition === "D") {
             indicatorFlag = true;
         }
-
-
 
         this.state = {
             score: 0,
@@ -48,16 +48,15 @@ class Experiment extends React.Component {
     }
 
     onTick() {
+        if (this.gameTime > ConfigValueController.getConditionDuration()) {
+            // TODO: END GAME
+            // TODO: SEND SCORE
+        }
+
         console.log(this.gameTime);
         this.gameTime += 1;
 
-        if (this.gameTime == 1) {
-            const wrapper = document.getElementById('experimentContainer');
-            wrapper.classList.toggle('warning');
-        }
-
-
-        if (this.gameTime === this.lopStart - 5) {
+        if (this.gameTime === this.lopStart - ConfigValueController.getWarningDuration()) {
             if (this.state.condition === 'A' || this.state.condition === 'B') {
                 this.toggleWarning();
                 this.currentGameState = gameState.WARNING;
@@ -71,7 +70,7 @@ class Experiment extends React.Component {
             }
             this.currentGameState = gameState.LOSS_OF_POINTS;
             console.log("Start LOP " + this.currentGameState);
-        } else if (this.gameTime === this.lopStart + 5) {
+        } else if (this.gameTime === this.lopStart + ConfigValueController.getPointsDecrementDuration()) {
             this.interactedWithWarningFlag = false;
             this.currentGameState = gameState.MATCHING_GAME;
             this.setUpNewTrial();
@@ -84,24 +83,25 @@ class Experiment extends React.Component {
         console.log("Update game values: " + this.currentGameState);
         if (this.isSwitchOverConditions() && this.state.shouldShowIndicator) {
             this.indicatorShowingTimer += 1;
-            // TODO: Update with configured amount
-            if (this.indicatorShowingTimer >= 10) {
+            if (this.indicatorShowingTimer >= ConfigValueController.getIndicatorDuration()) {
                 this.indicatorShowingTimer = 0;
                 this.setState({ shouldShowIndicator: false });
             }
         }
 
+        const pointsDecrement = ConfigValueController.getPointsPerDecrement() * -1;
+
         if (this.currentGameState === gameState.LOSS_OF_POINTS) {
             if (this.state.condition === 'A') {
                 if (!this.interactedWithWarningFlag) {
-                    this.scoreDeltaCallback(-1);
+                    this.scoreDeltaCallback(pointsDecrement);
                 }
             } else if (this.state.condition === 'B') {
-                this.scoreDeltaCallback(-1);
+                this.scoreDeltaCallback(pointsDecrement);
             } else if (this.state.condition === 'C') {
-                this.scoreDeltaCallback(-1);
+                this.scoreDeltaCallback(pointsDecrement);
             } else if (this.state.condition === 'D') {
-                this.scoreDeltaCallback(-1);
+                this.scoreDeltaCallback(pointsDecrement);
             }
 
         }
@@ -127,8 +127,7 @@ class Experiment extends React.Component {
     }
 
     setNewLOPTime() {
-        // TODO: Change to use configured time
-        this.lopStart = this.gameTime + 20;
+        this.lopStart = this.gameTime + ConfigValueController.getLossOfPointsStart();
     }
 
     scoreDeltaCallback = (delta) => {
@@ -156,13 +155,13 @@ class Experiment extends React.Component {
         }
     }
 
-    // toggleWarning() {
-    //     this.setState({
-    //         warningEnabled: !this.state.warningEnabled
-    //     })
-    //     const wrapper = document.getElementById('experimentContainer');
-    //     wrapper.classList.toggle('warning');
-    // }
+    toggleWarning() {
+        this.setState({
+            warningEnabled: !this.state.warningEnabled
+        })
+        const wrapper = document.getElementById('experimentContainer');
+        wrapper.classList.toggle('warning');
+    }
 
     onClickWarning() {
         console.log("ON CLICK WARNING ");
@@ -172,13 +171,15 @@ class Experiment extends React.Component {
         }
     }
 
-    // To test this out you can change the string for color on line 180
-    // Uncomment toggleWarning() before merge!!
     render() {
-        console.log(this.state.shouldShowIndicator);
         return (
             <div>
-                <div style={{ backgroundColor: "green" }} className="experimentContainer" id='experimentContainer' onClick={this.onClickWarning.bind(this)}>
+                <div 
+                    style={{ backgroundColor: this.backgroundColor }} 
+                    className="experimentContainer" 
+                    id='experimentContainer' 
+                    onClick={this.onClickWarning.bind(this)}
+                    >
                     <Warning
                         condition={this.state.condition}
                         parentCallback={this.scoreDeltaCallback}

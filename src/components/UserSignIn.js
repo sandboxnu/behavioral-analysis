@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Launch from './Launch';
+import Experiment from './Experiment';
 import styled from 'styled-components';
 
 const SignInScreen = styled.div`
@@ -72,7 +72,7 @@ class UserInfoForm extends React.Component {
   handleSubmit(e) {
     console.log(this.state.userId)
     if (this.state.userId.length > 0) {
-      ReactDOM.render(<Launch />, document.getElementById('root'));   
+      ReactDOM.render(<Experiment condition={this.props.condition}/>, document.getElementById('root'));   
     } else {
       this.setState({isIDEmpty: true});
     }
@@ -102,12 +102,16 @@ class UserSignIn extends Component {
   }
 
   renderSignInScreen() {
+    let condition = this.props.condition;
+    if (this.props.condition == null) {
+      condition = "A";
+    }
     return (
       <SignInScreen>
         <SignInContainer>
           <SignInTitle> Behavioral Analysis</SignInTitle>
           <SignInSubtitle>Enter your assigned ID.</SignInSubtitle>
-          <UserInfoForm />
+          <UserInfoForm condition={condition}/>
         </SignInContainer>
       </SignInScreen>
     );

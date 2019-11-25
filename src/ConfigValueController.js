@@ -2,64 +2,60 @@ import _ from 'lodash';
 
 class ConfigValuesController {
     constructor() {
-        this.warningDuration = 30;
-        this.warningStartLowerBound = 20;
-        this.warningStartUpperBound = 30;
+        this.warningDuration = 5;
+        this.indicatorDuration = 10;
+        this.lossOfPointsStartLowerBound = 20;
+        this.lossOfPointsStartUpperBound = 30;
         this.pointsPerDecrement = 1;
-        this.secondsUntilPointDecrement = 10;
-        this.conditionDuration = 30;
+        this.pointsDecrementDuration = 10;
+        this.conditionDuration = 600;
         this.soundOn = true;
-        this.conditionAColor = 'blue';
-        this.conditionBColor = 'red';
-        this.conditionCColor = 'yellow';
-        this.conditionDColor = 'green';
+        this.conditionAColor = '#a6cff5';
+        this.conditionBColor = '#e87474';
+        this.conditionCColor = '#84b5ab';
+        this.conditionDColor = '#b8f5be';
     }
    
     update(configValues) {
-        let testConfigValues = {
-            warningDuration: 30,
-            warningStartLowerBound: 20,
-            warningStartUpperBound: 30,
-            pointsPerDecrement: 1,
-            secondsUntilPointDecrement: 10,
-            conditionDuration: 30,
-            soundOn: true,
-            conditionAColor: 'blue',
-            conditionBColor: 'red',
-            conditionCColor: 'yellow',
-            conditionDColor: 'green'
-        };
-
-        this.warningDuration = _.get(testConfigValues, "warningDuration", 30);
-        this.warningStartLowerBound = _.get(testConfigValues, "warningStartLowerBound", 20);
-        this.warningStartUpperBound = _.get(testConfigValues, "warningStartUpperBound", 30);
-        this.pointsPerDecrement = _.get(testConfigValues, "pointsPerDecrement", 1);
-        this.secondsUntilPointDecrement = _.get(testConfigValues, "secondsUntilPointDecrement", 10);
-        this.conditionDuration = _ .get(testConfigValues, "conditionDuration", 30);
-        this.soundOn = _.get(testConfigValues, "soundOn", true);
-        this.conditionAColor = _.get(testConfigValues, "conditionAColor", "blue");
-        this.conditionBColor = _.get(testConfigValues, "conditionBColor", "red");
-        this.conditionCColor = _.get(testConfigValues, "conditionCColor", "yellow");
-        this.conditionDColor = _ .get(testConfigValues, "conditionDColor", "green");
+        this.warningDuration = _.get(configValues, "warningDuration", 5);
+        this.indicatorDuration = _.get(configValues, "indicatorDuration", 10);
+        this.lossOfPointsStartLowerBound = _.get(configValues, "lossOfPointsStartLowerBound", 20);
+        this.lossOfPointsStartUpperBound = _.get(configValues, "lossOfPointsStartUpperBound", 30);
+        this.pointsPerDecrement = _.get(configValues, "pointsPerDecrement", 1);
+        this.pointsDecrementDuration = _.get(configValues, "pointsDecrementDuration", 10);
+        this.conditionDuration = _ .get(configValues, "conditionDuration", 600);
+        this.soundOn = _.get(configValues, "soundOn", true);
+        this.conditionAColor = _.get(configValues, "conditionAColor", "#a6cff5");
+        this.conditionBColor = _.get(configValues, "conditionBColor", "#e87474");
+        this.conditionCColor = _.get(configValues, "conditionCColor", "#84b5ab");
+        this.conditionDColor = _ .get(configValues, "conditionDColor", "#b8f5be");
     }
 
     getWarningDuration() {
         return this.warningDuration;
     }
 
-    getWarningStartLowerBound() {
-        return this.warningStartLowerBound;
+    getIndicatorDuration() {
+        return this.indicatorDuration;
+    }
+
+    getLossOfPointsStart() {
+        return Math.floor((Math.random() * (this.getLossOfPointsStartUpperBound() - this.getLossofPointsStartLowerBound()))  + this.getLossofPointsStartLowerBound());
+    }
+
+    getLossofPointsStartLowerBound() {
+        return this.lossOfPointsStartLowerBound;
     }
     
-    getWarningStartUpperBound() {
-        return this.warningStartUpperBound;
+    getLossOfPointsStartUpperBound() {
+        return this.lossOfPointsStartUpperBound;
     }
 
     getPointsPerDecrement() {
         return this.pointsPerDecrement;
     }
 
-    getSecondsUntilPointDecrement() {
+    getPointsDecrementDuration() {
         return this.secondsUntilPointDecrement;
     }
 
