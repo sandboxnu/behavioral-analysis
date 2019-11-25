@@ -9,8 +9,6 @@ import { faCheckSquare, faCoffee , faRocket, faPiggyBank} from '@fortawesome/fre
  
 library.add(fab, faCheckSquare, faCoffee, faRocket, faPiggyBank)
 
-console.log(faPiggyBank.iconName);
-
 ReactDOM.render(<App/>, document.getElementById('root'));
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

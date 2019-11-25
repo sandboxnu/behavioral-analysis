@@ -47,7 +47,7 @@ class Experiment extends React.Component {
     }
 
     onTick() {
-        if (this.gameTime === ConfigValueController.getConditionDuration()) {
+        if (this.gameTime > ConfigValueController.getConditionDuration()) {
             // TODO: END GAME
             // TODO: SEND SCORE
         }
