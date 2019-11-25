@@ -2,12 +2,13 @@ import _ from 'lodash';
 
 class ConfigValuesController {
     constructor() {
-        this.warningDuration = 30;
-        this.warningStartLowerBound = 20;
-        this.warningStartUpperBound = 30;
+        this.warningDuration = 5;
+        this.indicatorDuration = 10;
+        this.lossOfPointsStartLowerBound = 20;
+        this.lossOfPointsStartUpperBound = 30;
         this.pointsPerDecrement = 1;
-        this.secondsUntilPointDecrement = 10;
-        this.conditionDuration = 30;
+        this.pointsDecrementDuration = 10;
+        this.conditionDuration = 600;
         this.soundOn = true;
         this.conditionAColor = 'blue';
         this.conditionBColor = 'red';
@@ -17,12 +18,13 @@ class ConfigValuesController {
    
     update(configValues) {
         let testConfigValues = {
-            warningDuration: 30,
-            warningStartLowerBound: 20,
-            warningStartUpperBound: 30,
+            warningDuration: 5,
+            indicatorDuration: 10,
+            lossOfPointsStartLowerBound: 20,
+            lossOfPointsStartUpperBound: 30,
             pointsPerDecrement: 1,
-            secondsUntilPointDecrement: 10,
-            conditionDuration: 30,
+            pointsDecrementDuration: 10,
+            conditionDuration: 600,
             soundOn: true,
             conditionAColor: 'blue',
             conditionBColor: 'red',
@@ -30,12 +32,13 @@ class ConfigValuesController {
             conditionDColor: 'green'
         };
 
-        this.warningDuration = _.get(testConfigValues, "warningDuration", 30);
-        this.warningStartLowerBound = _.get(testConfigValues, "warningStartLowerBound", 20);
-        this.warningStartUpperBound = _.get(testConfigValues, "warningStartUpperBound", 30);
+        this.warningDuration = _.get(testConfigValues, "warningDuration", 5);
+        this.indicatorDuration = _.get(testConfigValues, "indicatorDuration", 10);
+        this.lossOfPointsStartLowerBound = _.get(testConfigValues, "lossOfPointsStartLowerBound", 20);
+        this.lossOfPointsStartUpperBound = _.get(testConfigValues, "lossOfPointsStartUpperBound", 30);
         this.pointsPerDecrement = _.get(testConfigValues, "pointsPerDecrement", 1);
-        this.secondsUntilPointDecrement = _.get(testConfigValues, "secondsUntilPointDecrement", 10);
-        this.conditionDuration = _ .get(testConfigValues, "conditionDuration", 30);
+        this.pointsDecrementDuration = _.get(testConfigValues, "pointsDecrementDuration", 10);
+        this.conditionDuration = _ .get(testConfigValues, "conditionDuration", 600);
         this.soundOn = _.get(testConfigValues, "soundOn", true);
         this.conditionAColor = _.get(testConfigValues, "conditionAColor", "blue");
         this.conditionBColor = _.get(testConfigValues, "conditionBColor", "red");
@@ -47,19 +50,27 @@ class ConfigValuesController {
         return this.warningDuration;
     }
 
-    getWarningStartLowerBound() {
-        return this.warningStartLowerBound;
+    getIndicatorDuration() {
+        return this.indicatorDuration;
+    }
+
+    getLossOfPointsStart() {
+        return (Math.random() * (this.getLossOfPointsStartUpperBound() - this.getLossofPointsStartLowerBound()))  + this.getLossofPointsStartLowerBound();
+    }
+
+    getLossofPointsStartLowerBound() {
+        return this.lossOfPointsStartLowerBound;
     }
     
-    getWarningStartUpperBound() {
-        return this.warningStartUpperBound;
+    getLossOfPointsStartUpperBound() {
+        return this.lossOfPointsStartUpperBound;
     }
 
     getPointsPerDecrement() {
         return this.pointsPerDecrement;
     }
 
-    getSecondsUntilPointDecrement() {
+    getPointsDecrementDuration() {
         return this.secondsUntilPointDecrement;
     }
 
