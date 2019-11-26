@@ -14,7 +14,7 @@ class ConfigValuesController {
         this.conditionBColor = "#e87474";
         this.conditionCColor = "#84b5ab";
         this.conditionDColor = "#b8f5be";
-        this.configString = "sampleString";
+        this.endMessage = "Congrats the end! You made it!";
     }
    
     update(configValues) {
@@ -30,7 +30,7 @@ class ConfigValuesController {
         this.conditionBColor = _.get(configValues, "conditionBColor", "#e87474");
         this.conditionCColor = _.get(configValues, "conditionCColor", "#84b5ab");
         this.conditionDColor = _ .get(configValues, "conditionDColor", "#b8f5be");
-        this.configString = _.get(configValues, "configString", "sampleString");
+        this.endMessage = _.get(configValues, "endMessage", "Congrats the end! You made it!");
     }
 
     getWarningDuration() {
@@ -101,8 +101,8 @@ class ConfigValuesController {
         }
     }
 
-    getConfigString() {
-        return this.configString;
+    getEndMessage() {
+        return this.endMessage;
     }
 
     getConfigurableValues() {
@@ -118,7 +118,7 @@ class ConfigValuesController {
             conditionBColor: this.conditionBColor,
             conditionCColor: this.conditionCColor,
             conditionDColor: this.conditionDColor,
-            configString: this.configString
+            endMessage: this.endMessage
         })
     }
 

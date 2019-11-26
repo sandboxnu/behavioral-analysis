@@ -50,9 +50,9 @@
             "type": "string",
             "description": "Color for condition D"
         },
-        "configString": {
+        "endMessage": {
             "type": "string",
-            "description": "Identification code for game."
+            "description": "End message for the game."
         }
     },
     "required": [
@@ -68,6 +68,6 @@
         "conditionBColor",
         "conditionCColor",
         "conditionDColor",
-        "configString"
+        "endMessage"
     ]
 }
