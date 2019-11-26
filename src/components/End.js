@@ -36,7 +36,7 @@ const InfoBox = styled.div`
   border-radius: .5em;
   align: center;
   margin: auto;
-  width: 15em;
+  width: 55%;
 `
 
 class End extends Component {
