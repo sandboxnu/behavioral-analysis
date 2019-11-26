@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Experiment from './Experiment';
 import styled from 'styled-components';
+import ConfigValueController from '../ConfigValueController';
 
 const Screen = styled.div`
   display: flex;
@@ -41,7 +42,7 @@ const InfoBox = styled.div`
 class End extends Component {
   render() {
     let daScore = 5;
-    let daString = "turkey";
+    let daString = ConfigValueController.getConfigString();
     return (
       <Screen>
         <ScreenContainer>
@@ -53,6 +54,5 @@ class End extends Component {
     );
   }
 }
-
 
 export default End;

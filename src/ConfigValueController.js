@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _ from "lodash";
 
 class ConfigValuesController {
     constructor() {
@@ -10,10 +10,11 @@ class ConfigValuesController {
         this.pointsDecrementDuration = 10;
         this.conditionDuration = 600;
         this.soundOn = true;
-        this.conditionAColor = '#a6cff5';
-        this.conditionBColor = '#e87474';
-        this.conditionCColor = '#84b5ab';
-        this.conditionDColor = '#b8f5be';
+        this.conditionAColor = "#a6cff5";
+        this.conditionBColor = "#e87474";
+        this.conditionCColor = "#84b5ab";
+        this.conditionDColor = "#b8f5be";
+        this.configString = "sampleString";
     }
    
     update(configValues) {
@@ -29,6 +30,7 @@ class ConfigValuesController {
         this.conditionBColor = _.get(configValues, "conditionBColor", "#e87474");
         this.conditionCColor = _.get(configValues, "conditionCColor", "#84b5ab");
         this.conditionDColor = _ .get(configValues, "conditionDColor", "#b8f5be");
+        this.configString = _.get(configValues, "configString", "sampleString");
     }
 
     getWarningDuration() {
@@ -99,6 +101,10 @@ class ConfigValuesController {
         }
     }
 
+    getConfigString() {
+        return this.configString;
+    }
+
     getConfigurableValues() {
         return ({
             warningDuration: this.warningDuration,
@@ -111,7 +117,8 @@ class ConfigValuesController {
             conditionAColor: this.conditionAColor,
             conditionBColor: this.conditionBColor,
             conditionCColor: this.conditionCColor,
-            conditionDColor: this.conditionDColor
+            conditionDColor: this.conditionDColor,
+            configString: this.configString
         })
     }
 

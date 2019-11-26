@@ -49,6 +49,10 @@
         "conditionDColor": {
             "type": "string",
             "description": "Color for condition D"
+        },
+        "configString": {
+            "type": "string",
+            "description": "Identification code for game."
         }
     },
     "required": [
@@ -63,6 +67,7 @@
         "conditionAColor",
         "conditionBColor",
         "conditionCColor",
-        "conditionDColor"
+        "conditionDColor",
+        "configString"
     ]
 }
