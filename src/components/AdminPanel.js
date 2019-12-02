@@ -6,8 +6,10 @@ import { faDownload } from '@fortawesome/free-solid-svg-icons'
 import styled from 'styled-components';
 import schema from '../ConfigValuesSchema';
 import Axios from 'axios';
+import Login from './Login.js';
+import ServerUtils from '../ServerUtils';
 
-const SERVER_URL = 'https://api.sandboxnu.com';
+const SERVER_URL = ServerUtils.getServerUrl();
 
 const PanelContainer = styled.div`
     padding-top: '25',
@@ -55,13 +57,22 @@ class AdminPanel extends Component {
         super(props);
         this.state = {
             configOnServer: {},
-            formData: {}
-        };
+            formData: {},
+            authenticated: false,
+            username: null,
+            password: null,
+          };
     }
 
     // TODO: post form data, add authenication
     onSubmit({ formData }) {
-        Axios.post(`${SERVER_URL}/config`, formData);
+        Axios.post(`${SERVER_URL}/config`, formData, {
+            auth: {
+              username: this.state.username,
+              password: this.state.password,
+            },
+          }).then(() => this.setState({ configOnServer: formData }))
+            .catch(error => console.log(error));
     }
 
     onChange({ formData }) {
@@ -87,7 +98,13 @@ class AdminPanel extends Component {
         return null;
     }
 
-    //TODO: implement onPassword()
+    onLogin(username, password) {
+        this.setState({
+            authenticated: true,
+            username,
+            password
+        });
+      }
 
     // TODO: implement downloadData()
     downloadData() {
@@ -97,46 +114,45 @@ class AdminPanel extends Component {
     renderPanel() {
         const { formData } = this.state;
         return (
-            <PanelContainer className="panel container">
-                <h2>Download all collected data</h2>
-                <DownloadButton onClick={() => { this.downloadData(); }} type="button" className="btn btn-primary">
-                    <FontAwesomeIcon icon={faDownload}/>
-                    {' '}
-                    Download all collected data
-                </DownloadButton>
-                <hr/>
-                <h2>Download data for given userId</h2>
-                <UserIdForm/>
-                <hr/>
-                <h2>Configure Experiment</h2>
-                <Form
-                    className="configForm"
-                    schema={schema}
-                    formData={formData}
-                    onChange={f => this.onChange(f)}
-                    onSubmit={f => this.onSubmit(f)}
-                />
-            </PanelContainer>
-        );
-    }
-
-    // TODO: add authentication
-    render() {
-
-        Axios.get(`${SERVER_URL}/config`)
-            .then(response => response.json())
-            .then(json => console.log(json));
-
-        return (
             <div>
-                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossOrigin="anonymous"/>
-                <Fetch url={`${SERVER_URL}/config`} as="json" onDataChange={d => this.onServerData(d) }
-                       mode="CORS">
-                        {() => this.renderPanel()}
+                <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"/>
+                <Fetch url={`${SERVER_URL}/config`} as="json" onDataChange={d => this.onServerData(d)}>
+                    <PanelContainer className="panel container">
+                        <h2>Download all collected data</h2>
+                        <DownloadButton onClick={() => { this.downloadData(); }} type="button" className="btn btn-primary">
+                            <FontAwesomeIcon icon={faDownload}/>
+                            {' '}
+                            Download all collected data
+                        </DownloadButton>
+                        <hr/>
+                        <h2>Download data for given userId</h2>
+                        <UserIdForm/>
+                        <hr/>
+                        <h2>Configure Experiment</h2>
+                        <Form   
+                            className="configForm"
+                            schema={schema}
+                            formData={formData}
+                            onChange={f => this.onChange(f)}
+                            onSubmit={f => this.onSubmit(f)}
+                        />
+                    </PanelContainer>
                 </Fetch>
-            </div>
+          </div>
         );
     }
+
+    render() {
+        if (!this.state.authenticated) {
+          return (
+            <div>
+              <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous"/>
+              <Login onLogin={this.onLogin.bind(this)} />
+            </div>
+          );
+        }
+        return this.renderPanel();
+      }
 
 }
 

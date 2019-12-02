@@ -17,6 +17,7 @@ class ConfigValuesController {
     }
    
     update(configValues) {
+        console.log(configValues);
         this.warningDuration = _.get(configValues, "warningDuration", 5);
         this.indicatorDuration = _.get(configValues, "indicatorDuration", 10);
         this.lossOfPointsStartLowerBound = _.get(configValues, "lossOfPointsStartLowerBound", 20);
