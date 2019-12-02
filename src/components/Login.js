@@ -19,7 +19,6 @@ class Login extends Component {
 
   onPassword() {
     const { username, password } = this.state;
-    console.log(username);
     Axios.post(`${SERVER_URL}/login`, {}, {
       auth: {
         username,
