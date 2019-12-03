@@ -17,10 +17,10 @@ class ServerUtils {
         "pointsDecrementDuration": 10,
         "conditionDuration": 600,
         "soundOn": true,
-        "conditionAColor": "blue",
-        "conditionBColor": "red",
-        "conditionCColor": "yellow",
-        "conditionDColor": "green"
+        "conditionAColor": "#a6cff5",
+        "conditionBColor": "#e87474",
+        "conditionCColor": "#84b5ab",
+        "conditionDColor": "#b8f5be"
     };
   }
 }
