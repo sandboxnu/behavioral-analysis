@@ -113,7 +113,7 @@ class UserSignIn extends Component {
     return (
       <SignInScreen>
         <SignInContainer>
-          <SignInTitle> Behavioral Analysis</SignInTitle>
+          <SignInTitle> Behavior Analysis</SignInTitle>
           <SignInSubtitle>Enter your assigned ID.</SignInSubtitle>
           <UserInfoForm condition={condition}/>
         </SignInContainer>
