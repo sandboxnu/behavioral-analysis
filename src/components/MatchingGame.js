@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Indicator from './Indicator.js';
 import styled, {keyframes} from 'styled-components';
 
-const images = ["coffee", "rocket", "check-square", "piggy-bank"];
+const images = ["coffee", "rocket", "check-square", "piggy-bank", "ad", "address-book", "air-freshener", "allergies", "ambulance", "american-sign-language-interpreting", "anchor", "angle-double-down", "angry", "ankh", "apple-alt", "arrow-alt-circle-down", "assistive-listening-systems", "asterisk", "at", "atom", "award", "baby", "baby-carriage", "bacon", "balance-scale", "balance-scale-left", "baseball-ball", "bath", "battery-empty", "bed", "beer", "bell", "biking", "binoculars", "biohazard", "birthday-cake", "blender", "blind", "bolt", "bomb", "bone", "bong", "bug", "building", "bullhorn", "burn", "bus", "camera", "campground", "candy-cane", "cannabis", "capsules", "car", "cash-register", "cat", "charging-station", "chart-pie", "chess-bishop", "clinic-medical", "cloud-moon", "cocktail", "code-branch", "cogs", "coins", "comment-dollar", "crow", "crown", "cubes", "cut", "democrat", "divide", "dove", "dragon", "dungeon", "feather", "feather-alt", "fill-drip", "fish", "football-ball", "gamepad", "gas-pump", "gavel", "gem", "ghost", "gift", "glass-cheers", "glasses", "globe-africa", "graduation-cap", "hamburger", "hand-holding-heart", "handshake", "hashtag", "hat-cowboy", "headphones-alt", "helicopter", "hiking", "hippo", "hotdog", "hourglass-end", "icons", "igloo", "key", "laptop"];
 
 const Score = styled.div` 
     float: 'right',
