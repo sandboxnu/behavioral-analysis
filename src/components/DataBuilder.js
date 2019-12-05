@@ -1,3 +1,4 @@
+import ConfigValueController from "../ConfigValueController";
 
 class DataBuilder {
     constructor() {
@@ -15,21 +16,23 @@ class DataBuilder {
         }`
 
         this.events.push(obj);
-        console.log("EVENT: " + eventName);
     }
 
     setUserID(userId) {
         this.userId =  userId;
     }
 
-    buildData(condition) {
+    setCondition(condition) {
         this.condition = condition;
+    }
 
+    getDataObject() {
         this.obj.userId = this.userId;
-        this.obj.condition = condition;
+        this.obj.condition = this.condition;
         this.data.events = this.events;
         this.obj.data = this.data;
-        // TODO: send data to server
+        
+        return this.obj;
     }
 }
 
