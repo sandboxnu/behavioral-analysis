@@ -3,6 +3,16 @@ import Axios from 'axios';
 const SERVER_URL = 'https://api.sandboxnu.com';
 
 class ServerUtils {
+  sendData(collected) {
+    // Using axios http lib to send post request with formdata.
+    // fetch, xmlhttprequest, jquery etc. could also be used.
+    Axios.post(`${SERVER_URL}/data`, collected)
+      .then((response) => {
+        console.log(response);
+      })
+     .catch(error => console.log(error));
+  }
+
   getServerUrl() {
     return SERVER_URL;
   }

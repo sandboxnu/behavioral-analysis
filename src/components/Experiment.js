@@ -4,6 +4,7 @@ import MatchingGame from './MatchingGame.js';
 import Warning from './Warning.js';
 import DataBuilder from  './DataBuilder.js'
 import ConfigValueController from '../ConfigValueController';
+import ServerUtils from '../ServerUtils';
 
 const dataCollector  = new DataBuilder();
 
@@ -52,6 +53,8 @@ class Experiment extends React.Component {
 
     onTick() {
         if (this.gameTime > ConfigValueController.getConditionDuration()) {
+            console.log("END GAME");
+            ServerUtils.sendData(DataBuilder.getDataObject());
             // TODO: END GAME
             // TODO: SEND SCORE
         }

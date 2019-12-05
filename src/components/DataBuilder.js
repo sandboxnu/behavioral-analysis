@@ -28,7 +28,7 @@ class DataBuilder {
 
     getDataObject() {
         this.obj.userId = this.userId;
-        this.obj.condition = this.condition;
+        this.data.condition = this.condition;
         this.data.events = this.events;
         this.obj.data = this.data;
         
