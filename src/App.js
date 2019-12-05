@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import UserSignIn from './UserSignIn';
-import AdminPanel from './AdminPanel';
+import UserSignIn from './components/UserSignIn';
+import AdminPanel from './components/AdminPanel';
 
 function AppRouter() {
     return (
@@ -9,19 +9,19 @@ function AppRouter() {
             <div className='App'>
                 <Route path='/admin' exact component={AdminPanel}/>
                 <Route
-                    path='/a'
+                    path='/blue'
                     render={(props) => <UserSignIn {...props} condition={"A"} />}
                 />
                 <Route
-                    path='/b'
+                    path='/red'
                     render={(props) => <UserSignIn {...props} condition={"B"} />}
                 />
                 <Route
-                    path='/c'
+                    path='/teal'
                     render={(props) => <UserSignIn {...props} condition={"C"} />}
                 />
                 <Route
-                    path='/d'
+                    path='/green'
                     render={(props) => <UserSignIn {...props} condition={"D"} />}
                 />
                 <Route
