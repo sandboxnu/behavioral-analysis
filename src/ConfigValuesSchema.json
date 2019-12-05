@@ -55,7 +55,7 @@
         "warningDuration",
         "indicatorDuration",
         "lossOfPointsStartLowerBound",
-        "lossOfPointsStartupperBound",
+        "lossOfPointsStartUpperBound",
         "pointsPerDecrement",
         "pointsDecrementDuration",
         "conditionDuration",
