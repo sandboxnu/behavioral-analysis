@@ -10,12 +10,11 @@ class DataBuilder {
     }
 
     addEvent(eventName, time) {
-        const obj = `{
-            timestamp: ${time},
-            eventName: ${eventName},
-        }`
+        let event = {}
+        event.timestamp = time;
+        event.eventName = eventName;
 
-        this.events.push(obj);
+        this.events.push(event);
     }
 
     setUserID(userId) {
@@ -27,7 +26,7 @@ class DataBuilder {
     }
 
     getDataObject() {
-        this.obj.userId = this.userId;
+        this.obj.participantId = this.userId;
         this.data.condition = this.condition;
         this.data.events = this.events;
         this.obj.data = this.data;

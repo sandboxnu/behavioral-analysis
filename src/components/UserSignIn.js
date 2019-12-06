@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Experiment from './Experiment';
 import styled from 'styled-components';
-import DataBuilder from './DataBuilder';
 import ConfigValueController from '../ConfigValueController';
 import ServerUtils from '../ServerUtils';
 import Fetch from 'react-fetch-component';
@@ -76,8 +75,7 @@ class UserInfoForm extends React.Component {
 
   handleSubmit(e) {
     if (this.state.userId.length > 0) {
-      DataBuilder.setUserID(this.state.userId);
-      ReactDOM.render(<Experiment condition={this.props.condition}/>, document.getElementById('root'));   
+      ReactDOM.render(<Experiment condition={this.props.condition} userId={this.state.userId}/>, document.getElementById('root'));   
     } else {
       this.setState({isIDEmpty: true});
     }

@@ -38,6 +38,8 @@ class Experiment extends React.Component {
             warningEnabled: false,
             shouldShowIndicator: indicatorFlag,
         }
+
+        dataCollector.setUserID(this.props.userId);
     }
 
     componentDidMount() {
@@ -53,8 +55,9 @@ class Experiment extends React.Component {
 
     onTick() {
         if (this.gameTime > ConfigValueController.getConditionDuration()) {
-            console.log("END GAME");
-            ServerUtils.sendData(DataBuilder.getDataObject());
+            console.log(dataCollector.getDataObject());
+            ServerUtils.sendData(dataCollector.getDataObject());
+            clearInterval(this.timerID);
             // TODO: END GAME
             // TODO: SEND SCORE
         }
@@ -213,10 +216,13 @@ class Experiment extends React.Component {
                 </div>
                 <MatchingGame
                     parentCallbackScore={this.scoreDeltaCallback}
+                    matchingGameAnswer={this.matchingGameCallback}
                     score={this.state.score}
                     parentCallbackIndicator={this.indicatorCallback}
+                    indicatorAppeared={this.indicatorAppeared} 
                     condition={this.state.condition}
                     shouldShowIndicator={this.state.shouldShowIndicator}
+                    questionAppeared={this.questionAppearedCallback}
                 />
             </div>
         );
