@@ -41,14 +41,13 @@ const InfoBox = styled.div`
 
 class End extends Component {
   render() {
-    let daScore = 5;
     let daString = ConfigValueController.getEndMessage();
     return (
       <Screen>
         <ScreenContainer>
           <Title> Behavioral Analysis</Title>
           <Subtitle>{daString}<br />Please contact your researcher.</Subtitle>
-          <InfoBox>Score:{' '}{daScore}</InfoBox>
+          <InfoBox>Score:{' '}{this.props.endScore}</InfoBox>
         </ScreenContainer>
       </Screen>
     );

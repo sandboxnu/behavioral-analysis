@@ -2,6 +2,7 @@ import React from 'react';
 import './Experiment.css';
 import MatchingGame from './MatchingGame.js';
 import Warning from './Warning.js';
+import End from './End.js';
 import ConfigValueController from '../ConfigValueController';
 
 const gameState = {
@@ -51,6 +52,14 @@ class Experiment extends React.Component {
         if (this.gameTime > ConfigValueController.getConditionDuration()) {
             // TODO: END GAME
             // TODO: SEND SCORE
+            return (
+                <div>
+                    <End endScore={this.score}/>
+                </div>
+              );
+            
+            
+            
         }
 
         console.log(this.gameTime);
