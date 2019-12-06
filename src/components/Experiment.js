@@ -58,8 +58,7 @@ class Experiment extends React.Component {
             console.log(dataCollector.getDataObject());
             ServerUtils.sendData(dataCollector.getDataObject());
             clearInterval(this.timerID);
-            // TODO: END GAME
-            // TODO: SEND SCORE
+            // TODO: SHOW END GAME SCREEN
         }
 
         console.log(this.gameTime);
@@ -166,11 +165,9 @@ class Experiment extends React.Component {
         if (this.state.originalCondition === "C") {
             this.setState({ condition: "A"});
             console.log("condition is now A");
-            dataCollector.addEvent("beginCondition", this.gameTime);
         } else if (this.state.originalCondition === "D") {
             this.setState({ condition: "B" });
             console.log("condition is now B");
-            dataCollector.addEvent("beginCondition",  this.gameTime);
         }
     }
 
