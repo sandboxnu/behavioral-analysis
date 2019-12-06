@@ -82,8 +82,6 @@ class UserInfoForm extends React.Component {
     e.preventDefault();
   }
   
-
-
   render() {
     return (
       <form onSubmit={this.handleSubmit}>

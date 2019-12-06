@@ -163,10 +163,18 @@ class Experiment extends React.Component {
     indicatorCallback = () => {
         dataCollector.addEvent("indicatorDissappeared", this.gameTime);  
         if (this.state.originalCondition === "C") {
-            this.setState({ condition: "A"});
+            this.indicatorShowingTimer = 0;
+            this.setState({ 
+                condition: "A",
+                shouldShowIndicator: false
+            });
             console.log("condition is now A");
         } else if (this.state.originalCondition === "D") {
-            this.setState({ condition: "B" });
+            this.indicatorShowingTimer = 0;
+            this.setState({ 
+                condition: "B",
+                shouldShowIndicator: false
+            });
             console.log("condition is now B");
         }
     }
