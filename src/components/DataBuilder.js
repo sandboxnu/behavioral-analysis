@@ -10,8 +10,10 @@ class DataBuilder {
     }
 
     addEvent(eventName, time) {
-        let event = {}
-        event.timestamp = time;
+        let event = {};
+        let currentTime = new Date();
+        event.timestamp = currentTime.getTime();
+        event.gameTime = time;
         event.eventName = eventName;
 
         this.events.push(event);
