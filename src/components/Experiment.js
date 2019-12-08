@@ -2,7 +2,11 @@ import React from 'react';
 import './Experiment.css';
 import MatchingGame from './MatchingGame.js';
 import Warning from './Warning.js';
+import DataBuilder from  './DataBuilder.js'
 import ConfigValueController from '../ConfigValueController';
+import ServerUtils from '../ServerUtils';
+
+const dataCollector  = new DataBuilder();
 
 const gameState = {
     MATCHING_GAME: 'match',
@@ -34,6 +38,8 @@ class Experiment extends React.Component {
             warningEnabled: false,
             shouldShowIndicator: indicatorFlag,
         }
+
+        dataCollector.setUserID(this.props.userId);
     }
 
     componentDidMount() {
@@ -49,8 +55,10 @@ class Experiment extends React.Component {
 
     onTick() {
         if (this.gameTime > ConfigValueController.getConditionDuration()) {
-            // TODO: END GAME
-            // TODO: SEND SCORE
+            console.log(dataCollector.getDataObject());
+            ServerUtils.sendData(dataCollector.getDataObject());
+            clearInterval(this.timerID);
+            // TODO: SHOW END GAME SCREEN
         }
 
         console.log(this.gameTime);
@@ -67,20 +75,26 @@ class Experiment extends React.Component {
         } else if (this.gameTime === this.lopStart) {
             if (this.state.warningEnabled) {
                 this.toggleWarning();
+                dataCollector.addEvent("warningEnded", this.gameTime);
             }
             this.currentGameState = gameState.LOSS_OF_POINTS;
             console.log("Start LOP " + this.currentGameState);
+            dataCollector.addEvent("lossOfPointsBegin", this.gameTime);
+            dataCollector.addEvent("endTrial", this.gameTime);
         } else if (this.gameTime === this.lopStart + ConfigValueController.getPointsDecrementDuration()) {
             this.interactedWithWarningFlag = false;
             this.currentGameState = gameState.MATCHING_GAME;
             this.setUpNewTrial();
             console.log("END LOP. New LOP Start: " + this.lopStart);
+            dataCollector.addEvent("lossOfPointsEnd", this.gameTime);
+            dataCollector.addEvent("beginTrial", this.gameTime);
         }
         this.updateGameValues();
     }
 
     updateGameValues() {
         console.log("Update game values: " + this.currentGameState);
+        dataCollector.addEvent("update", this.gameTime);
         if (this.isSwitchOverConditions() && this.state.shouldShowIndicator) {
             this.indicatorShowingTimer += 1;
             if (this.indicatorShowingTimer >= ConfigValueController.getIndicatorDuration()) {
@@ -138,22 +152,39 @@ class Experiment extends React.Component {
         this.setState({ score: newScore });
     }
 
+    matchingGameCallback = (isCorrect) => {
+        if (isCorrect) {
+            dataCollector.addEvent("anweredCorrectly", this.gameTime);
+        } else {
+            dataCollector.addEvent("answeredWrong", this.gameTime);
+        }
+    }
+
     indicatorCallback = () => {
+        dataCollector.addEvent("indicatorDissappeared", this.gameTime);  
         if (this.state.originalCondition === "C") {
             this.indicatorShowingTimer = 0;
-            this.setState({
+            this.setState({ 
                 condition: "A",
                 shouldShowIndicator: false
             });
             console.log("condition is now A");
         } else if (this.state.originalCondition === "D") {
             this.indicatorShowingTimer = 0;
-            this.setState({
+            this.setState({ 
                 condition: "B",
                 shouldShowIndicator: false
             });
             console.log("condition is now B");
         }
+    }
+
+    indicatorAppeared = () => {
+        dataCollector.addEvent("indicatorAppeared", this.gameTime);
+    }
+
+    questionAppearedCallback = () => {
+        dataCollector.addEvent("questionAppeared", this.gameTime);
     }
 
     toggleWarning() {
@@ -167,6 +198,7 @@ class Experiment extends React.Component {
     onClickWarning() {
         console.log("ON CLICK WARNING ");
         if (this.state.warningEnabled) {
+            dataCollector.addEvent("warningInteraction", this.gameTime);
             this.interactedWithWarningFlag = true;
             this.toggleWarning();
         }
@@ -189,10 +221,13 @@ class Experiment extends React.Component {
                 </div>
                 <MatchingGame
                     parentCallbackScore={this.scoreDeltaCallback}
+                    matchingGameAnswer={this.matchingGameCallback}
                     score={this.state.score}
                     parentCallbackIndicator={this.indicatorCallback}
+                    indicatorAppeared={this.indicatorAppeared} 
                     condition={this.state.condition}
                     shouldShowIndicator={this.state.shouldShowIndicator}
+                    questionAppeared={this.questionAppearedCallback}
                 />
             </div>
         );

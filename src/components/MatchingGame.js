@@ -82,6 +82,7 @@ class MatchingGame extends React.Component {
         this.otherImages = images.filter(image => image !== this.state.topImage);
         this.shuffle(this.otherImages);
         this.allImages = this.shuffle([this.state.topImage, this.otherImages[0], this.otherImages[1]]);
+        this.props.questionAppeared();
     }
 
     renderImage(image) {
@@ -94,16 +95,17 @@ class MatchingGame extends React.Component {
     handleClick(image) {
         if (image === this.state.topImage) {
             console.log("YAY");
-            this.sendScoreDelta(1);
+            this.sendScoreDelta(1, true);
         } else {
             console.log("BOO");
-            //this.sendScoreDelta(0);
+            this.sendScoreDelta(0, false);
         }
         this.refresh();
     }
 
-    sendScoreDelta = (delta) => {
+    sendScoreDelta = (delta, isCorrect) => {
         this.props.parentCallbackScore(delta);
+        this.props.matchingGameAnswer(isCorrect);
     }
 
     refresh() {
@@ -113,6 +115,7 @@ class MatchingGame extends React.Component {
         this.otherImages = filtered;
         this.shuffle(this.otherImages);
         this.allImages = this.shuffle([randImage, this.otherImages[0], this.otherImages[1]]);
+        this.props.questionAppeared();
     }
 
     shuffle(arrayOfImages) {
@@ -135,6 +138,7 @@ class MatchingGame extends React.Component {
                     <Indicator 
                         condition={this.props.condition} 
                         parentCallbackIndicator={this.props.parentCallbackIndicator}
+                        parentCallbackIndicatorAppeared={this.props.indicatorAppeared}
                         shouldShowIndicator={this.props.shouldShowIndicator}
                     />
                     <Score>
