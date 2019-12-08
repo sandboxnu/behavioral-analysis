@@ -56,7 +56,7 @@ class UserInfoForm extends React.Component {
     super(props);
     this.state = {
       userId: '',
-      isIDEmpty: false
+      isIDEmpty: false,
     };
 
     this.handleFormChange = this.handleFormChange.bind(this);
@@ -75,18 +75,18 @@ class UserInfoForm extends React.Component {
 
   handleSubmit(e) {
     if (this.state.userId.length > 0) {
-      ReactDOM.render(<Experiment condition={this.props.condition} userId={this.state.userId}/>, document.getElementById('root'));   
+      ReactDOM.render(<Experiment condition={this.props.condition} userId={this.state.userId} tutorialMode={this.props.tutorialMode} tutorialCallBack={this.props.tutorialCallBack} />, document.getElementById('root'));
     } else {
-      this.setState({isIDEmpty: true});
+      this.setState({ isIDEmpty: true });
     }
     e.preventDefault();
   }
-  
+
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <UserIdInput name='userId' type='text' placeholder='Your ID' value={this.state.userId} onChange={this.handleFormChange}/>
-        <br/>
+        <UserIdInput name='userId' type='text' placeholder='Your ID' value={this.state.userId} onChange={this.handleFormChange} />
+        <br />
         <SubmitButton type='submit' value='Submit' />
         {this.state.isIDEmpty ? <UserPrompt>No ID entered. Please enter your ID.</UserPrompt> : <span></span>}
       </form>
@@ -100,7 +100,14 @@ class UserSignIn extends Component {
 
     this.state = {
       started: false,
+      tutorialFinished: false,
     };
+  }
+
+  tutorialFinished() {
+    console.log("Called tutorialFinished callback");
+    this.setState({ tutorialFinished: true});
+    console.log("tutMode: " + !this.state.tutorialFinished);
   }
 
   renderSignInScreen() {
@@ -113,7 +120,7 @@ class UserSignIn extends Component {
         <SignInContainer>
           <SignInTitle> Behavior Analysis</SignInTitle>
           <SignInSubtitle>Enter your assigned ID.</SignInSubtitle>
-          <UserInfoForm condition={condition}/>
+          <UserInfoForm condition={condition} tutorialMode={!this.state.tutorialFinished} tutorialCallBack={this.tutorialFinished.bind(this)} />
         </SignInContainer>
       </SignInScreen>
     );
