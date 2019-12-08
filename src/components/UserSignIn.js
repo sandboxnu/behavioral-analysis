@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Experiment from './Experiment';
 import styled from 'styled-components';
+import ConfigValueController from '../ConfigValueController';
+import ServerUtils from '../ServerUtils';
+import Fetch from 'react-fetch-component';
 
 const SignInScreen = styled.div`
   display: flex;
@@ -46,6 +49,7 @@ const UserIdInput = styled.input`
   border: 1px solid black;
 `
 
+const SERVER_URL = ServerUtils.getServerUrl();
 
 class UserInfoForm extends React.Component {
   constructor(props) {
@@ -109,7 +113,7 @@ class UserSignIn extends Component {
     return (
       <SignInScreen>
         <SignInContainer>
-          <SignInTitle> Behavioral Analysis</SignInTitle>
+          <SignInTitle> Behavior Analysis</SignInTitle>
           <SignInSubtitle>Enter your assigned ID.</SignInSubtitle>
           <UserInfoForm condition={condition}/>
         </SignInContainer>
@@ -117,10 +121,16 @@ class UserSignIn extends Component {
     );
   }
 
+  updateConfig(data) {
+    ConfigValueController.update(data);
+  }
+
   render() {
     return (
       <div>
-        {this.renderSignInScreen()}
+        <Fetch url={`${SERVER_URL}/config`} as="json" onDataChange={data => this.updateConfig(data)}>
+          {this.renderSignInScreen()}
+        </Fetch>
       </div>
     )
   }
