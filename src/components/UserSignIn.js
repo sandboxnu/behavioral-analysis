@@ -74,16 +74,14 @@ class UserInfoForm extends React.Component {
   }
 
   handleSubmit(e) {
-    console.log(this.state.userId)
     if (this.state.userId.length > 0) {
-      ReactDOM.render(<Experiment condition={this.props.condition}/>, document.getElementById('root'));   
+      ReactDOM.render(<Experiment condition={this.props.condition} userId={this.state.userId}/>, document.getElementById('root'));   
     } else {
       this.setState({isIDEmpty: true});
     }
     e.preventDefault();
   }
   
-
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
