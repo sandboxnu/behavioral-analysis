@@ -40,6 +40,7 @@ class Experiment extends React.Component {
         }
 
         dataCollector.setUserID(this.props.userId);
+        dataCollector.setCondition(this.props.condition);
     }
 
     componentDidMount() {
