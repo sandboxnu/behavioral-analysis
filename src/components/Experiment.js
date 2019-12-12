@@ -2,6 +2,7 @@ import React from 'react';
 import './Experiment.css';
 import MatchingGame from './MatchingGame.js';
 import Warning from './Warning.js';
+import End from './End.js';
 import DataBuilder from  './DataBuilder.js'
 import ConfigValueController from '../ConfigValueController';
 import ServerUtils from '../ServerUtils';
@@ -37,6 +38,7 @@ class Experiment extends React.Component {
             condition: startCondition,
             warningEnabled: false,
             shouldShowIndicator: indicatorFlag,
+            isConditionOver: false,
         }
 
         dataCollector.setUserID(this.props.userId);
@@ -55,11 +57,13 @@ class Experiment extends React.Component {
     }
 
     onTick() {
-        if (this.gameTime > ConfigValueController.getConditionDuration()) {
-            console.log(dataCollector.getDataObject());
+        if (this.gameTime > ConfigValueController.getConditionDuration()) {     
             ServerUtils.sendData(dataCollector.getDataObject());
             clearInterval(this.timerID);
-            // TODO: SHOW END GAME SCREEN
+            this.setState({
+                isConditionOver: true
+            })
+            return;
         }
 
         console.log(this.gameTime);
@@ -206,6 +210,13 @@ class Experiment extends React.Component {
     }
 
     render() {
+        if (this.state.isConditionOver) {
+            return ( 
+                <div>
+                    <End endScore={this.state.score}/>
+                </div>
+            );
+        }
         return (
             <div>
                 <div 

@@ -7,7 +7,7 @@ function AppRouter() {
     return (
         <Router>
             <div className='App'>
-                <Route path='/admin' exact component={AdminPanel}/>
+                <Route path='/admin' exact component={AdminPanel} />
                 <Route
                     path='/blue'
                     render={(props) => <UserSignIn {...props} condition={"A"} />}
