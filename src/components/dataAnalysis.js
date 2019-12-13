@@ -1,74 +1,4 @@
 
-// import { testData } from "./TestData";
-
-// var testData = { 
-//     "events": [ 
-//         {
-//             "timestamp": 1,
-//             "gamestate": {},
-//             "eventName": "beginTrial",
-//         },
-//         {
-//             "timestamp": 2,
-//             "gamestate": {},
-//             "eventName": "questionAppeared",
-//         },
-//         {
-//             "timestamp": 4,
-//             "gamestate": {},
-//             "eventName": "answeredCorrectly",
-//         },
-//         {
-//             "timestamp": 5,
-//             "gamestate": {},
-//             "eventName": "questionAppeared",
-//         },
-//         {
-//             "timestamp": 7,
-//             "gamestate": {},
-//             "eventName": "answeredWrong",
-//         },
-//         {
-//             "timestamp": 8,
-//             "gamestate": {},
-//             "eventName": "endTrial",
-//         },
-//         {
-//             "timestamp": 10,
-//             "gamestate": {},
-//             "eventName": "beginTrial",
-//         },
-//         {
-//             "timestamp": 11,
-//             "gamestate": {},
-//             "eventName": "questionAppeared",
-//         },
-//         {
-//             "timestamp": 15,
-//             "gamestate": {},
-//             "eventName": "warningAppeared",
-//         },
-//         {
-//             "timestamp": 18,
-//             "gamestate": {},
-//             "eventName": "warningInteraction",
-//         },
-//         {
-//             "timestamp": 19,
-//             "gamestate": {},
-//             "eventName": "answeredCorrectly",
-//         },
-//         {
-//             "timestamp": 20,
-//             "gamestate": {},
-//             "eventName": "endTrial",
-//         },
-//     ]
-// };
-
-// to test
-// console.log(process(testData));
-
 // takes in all of the events -> returns processed event data
 function process(allData, participantid) {
 
@@ -95,47 +25,21 @@ function process(allData, participantid) {
     processedData.participantid = participantid;
     processedData.condition = condition;
 
-    let questionToAnswer = {};
-    questionToAnswer.times = questionAnswerTime;
-    questionToAnswer.average = avgQuestionAnswerTime;
-    processedData.questionToAnswer = questionToAnswer;
-
-    let trialToTrial = {};
-    trialToTrial.times = trialTime;
-    trialToTrial.average = avgTrialTime;
-    processedData.trialToTrial = trialToTrial;
-
-    let warningToInteraction = {};
-    warningToInteraction.times = warningInteractionTime;
-    warningToInteraction.average = avgWarningInteractionTime;
-    processedData.warningToInteraction = warningToInteraction;
+    processedData.questionToAnswerTimes = questionAnswerTime;
+    processedData.questionToAnswerAverage = avgQuestionAnswerTime;
 
     processedData.questionAnswerWrongAvg = questionAnswerWrongAvg;
     processedData.questionAnswerCorrectAvg = questionAnswerCorrectAvg;
 
-    // var processedData = `{
-    //     participantid: ${participantid},
-    //     condition: ${condition},
-    //     questionToAnswer: {
-    //         times : ${questionAnswerTime},
-    //         average : ${avgQuestionAnswerTime},
-    //     },
-    //     trialToTrial: {
-    //         times : ${trialTime},
-    //         average : ${avgTrialTime},
-    //     },
-    //     warningToInteraction: {
-    //         times : ${warningInteractionTime},
-    //         average : ${avgWarningInteractionTime},
-    //     }, 
-    //     questionAnsweredWrongAvg: ${questionAnswerWrongAvg},
-    //     questionAnsweredCorrectAvg: ${questionAnswerCorrectAvg},
-    // }`;
+    processedData.trialToTrialTimes = trialTime;
+    processedData.trialToTrialAverage = avgTrialTime;
+
+    processedData.warningToInteractionTimes = warningInteractionTime;
+    processedData.warningToInteractionAverage = avgWarningInteractionTime;
 
     // return the data
     return processedData;
 }
-
 
 // returns an array containing the times between an initial event and ending event for all of the data
 // there are 2 ending events for the case of a question appearing and it being answered so both can be passed in

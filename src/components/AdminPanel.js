@@ -128,7 +128,6 @@ class AdminPanel extends Component {
         this.getData("arun", "arun").then((response) => {
 
             let processedData = [];
-
             for (let i = 0; i < response.data.length; i++) {
                 processedData.push(process(response.data[i].sessiondata, response.data[i].participantid));
             }
