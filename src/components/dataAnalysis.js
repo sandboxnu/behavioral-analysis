@@ -37,7 +37,6 @@ function process(allData, participantid) {
     processedData.warningToInteractionTimes = warningInteractionTime;
     processedData.warningToInteractionAverage = avgWarningInteractionTime;
 
-    // return the data
     return processedData;
 }
 
@@ -50,17 +49,12 @@ function timeBetween(initEvent, endEvent1, endEvent2, data) {
 
     for (let index = 0; index < data.length; index++) {
         let thisEvent = data[index];
-        //console.log("name: " + thisEvent.eventName + "index: " + index);
         if (thisEvent.eventName === initEvent) {
-            console.log("INITIAL EVENT: " + index);
             initTime = thisEvent.timestamp;
         } else if (thisEvent.eventName === endEvent1 || thisEvent.eventName === endEvent2) {
-            console.log("FINAL EVENT: " + index);
             endTime = thisEvent.timestamp;
             if (initTime !== -1) {
                 arr.push(endTime - initTime);
-                // console.log("end time: " + endTime);
-                // console.log("start time: " + initTime);
             }
         }
     }

@@ -8,6 +8,7 @@ import schema from '../ConfigValuesSchema';
 import Axios from 'axios';
 import Login from './Login.js';
 import ServerUtils from '../ServerUtils';
+import CSVUtils from '../CSVUtils'
 import process from './dataAnalysis.js';
 
 const SERVER_URL = ServerUtils.getServerUrl();
@@ -125,16 +126,13 @@ class AdminPanel extends Component {
     downloadData() {
         console.log("Clicked download!");
  
-        this.getData("arun", "arun").then((response) => {
-
+        this.getData(this.state.username, this.state.password).then((response) => {
             let processedData = [];
             for (let i = 0; i < response.data.length; i++) {
                 processedData.push(process(response.data[i].sessiondata, response.data[i].participantid));
             }
 
-            for (let i = 0; i < processedData.length; i++) {
-                console.log(processedData[i]);
-            }
+            CSVUtils.JSONToCSVConvertor(processedData, 'Behavior Analysis Data', true);
          } );
     }
 
