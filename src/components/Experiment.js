@@ -74,6 +74,7 @@ class Experiment extends React.Component {
                 this.toggleWarning();
                 this.currentGameState = gameState.WARNING;
                 console.log("Start Warning " + this.currentGameState);
+                dataCollector.addEvent("warningAppeared", this.gameTime);
             } else {
                 console.log("Warning Skipped");
             }
@@ -159,7 +160,7 @@ class Experiment extends React.Component {
 
     matchingGameCallback = (isCorrect) => {
         if (isCorrect) {
-            dataCollector.addEvent("anweredCorrectly", this.gameTime);
+            dataCollector.addEvent("answeredCorrectly", this.gameTime);
         } else {
             dataCollector.addEvent("answeredWrong", this.gameTime);
         }
