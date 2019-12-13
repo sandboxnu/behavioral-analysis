@@ -2,11 +2,11 @@ import React from 'react';
 import './Experiment.css';
 import MatchingGame from './MatchingGame.js';
 import Warning from './Warning.js';
-import DataBuilder from  './DataBuilder.js'
+import DataBuilder from './DataBuilder.js'
 import ConfigValueController from '../ConfigValueController';
 import ServerUtils from '../ServerUtils';
 
-const dataCollector  = new DataBuilder();
+const dataCollector = new DataBuilder();
 
 const gameState = {
     MATCHING_GAME: 'match',
@@ -19,6 +19,7 @@ class Experiment extends React.Component {
         super(props);
 
         let startCondition = this.props.condition;
+        this.isTutorial = this.startCondition === "tutorial"
         this.gameTime = 0;
         this.currentGameState = gameState.MATCHING_GAME;
         this.lopStart = ConfigValueController.getLossOfPointsStart();
@@ -27,6 +28,7 @@ class Experiment extends React.Component {
         this.indicatorShowingTimer = 0;
         let indicatorFlag = false;
         this.backgroundColor = ConfigValueController.getColorForCondition(startCondition);
+
         if (startCondition === "C" || startCondition === "D") {
             indicatorFlag = true;
         }
@@ -40,6 +42,7 @@ class Experiment extends React.Component {
         }
 
         dataCollector.setUserID(this.props.userId);
+        console.log("tutMode: " +  this.isTutorial);
     }
 
     componentDidMount() {
@@ -147,7 +150,21 @@ class Experiment extends React.Component {
 
     scoreDeltaCallback = (delta) => {
         let currScore = this.state.score;
-        let newScore = currScore + delta;
+        let newScore = currScore;
+        if (this.isTutorial) {
+            if (delta <= 0) {
+                newScore = 0;
+            } else {
+                newScore = currScore + delta;
+            }
+            if (currScore == 3) {
+                newScore = 0;
+                this.props.tutorialCallBack();
+            }
+        } else {
+            newScore = currScore + delta;
+        }
+
         newScore = Math.max(0, newScore)
         this.setState({ score: newScore });
     }
@@ -161,17 +178,17 @@ class Experiment extends React.Component {
     }
 
     indicatorCallback = () => {
-        dataCollector.addEvent("indicatorDissappeared", this.gameTime);  
+        dataCollector.addEvent("indicatorDissappeared", this.gameTime);
         if (this.state.originalCondition === "C") {
             this.indicatorShowingTimer = 0;
-            this.setState({ 
+            this.setState({
                 condition: "A",
                 shouldShowIndicator: false
             });
             console.log("condition is now A");
         } else if (this.state.originalCondition === "D") {
             this.indicatorShowingTimer = 0;
-            this.setState({ 
+            this.setState({
                 condition: "B",
                 shouldShowIndicator: false
             });
@@ -207,30 +224,34 @@ class Experiment extends React.Component {
     render() {
         return (
             <div>
-                <div 
-                    style={{ backgroundColor: this.backgroundColor }} 
-                    className="experimentContainer" 
-                    id='experimentContainer' 
+                <div
+                    style={{ backgroundColor: this.backgroundColor }}
+                    className="experimentContainer"
+                    id='experimentContainer'
                     onClick={this.onClickWarning.bind(this)}
-                    >
+                >
                     <Warning
+                        tutorialMode={this.isTutorial}
                         condition={this.state.condition}
                         parentCallback={this.scoreDeltaCallback}
                         isWarningEnabled={this.state.warningEnabled}
                     />
                 </div>
                 <MatchingGame
+                    tutorialMode={this.isTutorial}
                     parentCallbackScore={this.scoreDeltaCallback}
                     matchingGameAnswer={this.matchingGameCallback}
                     score={this.state.score}
                     parentCallbackIndicator={this.indicatorCallback}
-                    indicatorAppeared={this.indicatorAppeared} 
+                    indicatorAppeared={this.indicatorAppeared}
                     condition={this.state.condition}
                     shouldShowIndicator={this.state.shouldShowIndicator}
                     questionAppeared={this.questionAppearedCallback}
                 />
             </div>
         );
+
+
     }
 }
 
