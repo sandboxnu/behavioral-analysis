@@ -165,7 +165,6 @@ class Experiment extends React.Component {
             }
             if (currScore == 19) {
                 newScore = 0;
-                console.log("GAME ENDS!!!!!!!!!")
                 this.endGame();
             }
         } else {
