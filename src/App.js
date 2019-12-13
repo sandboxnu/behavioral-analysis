@@ -25,6 +25,10 @@ function AppRouter() {
                     render={(props) => <UserSignIn {...props} condition={"D"} />}
                 />
                 <Route
+                    path='/tutorial'
+                    render={(props) => <UserSignIn {...props} condition={"tutorial"} />}
+                />
+                <Route
                     path='/' exact component={UserSignIn}
                 />
             </div>
