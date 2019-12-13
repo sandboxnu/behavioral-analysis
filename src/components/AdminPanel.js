@@ -8,6 +8,7 @@ import schema from '../ConfigValuesSchema';
 import Axios from 'axios';
 import Login from './Login.js';
 import ServerUtils from '../ServerUtils';
+import process from './dataAnalysis.js';
 
 const SERVER_URL = ServerUtils.getServerUrl();
 
@@ -75,6 +76,20 @@ class AdminPanel extends Component {
             .catch(error => console.log(error));
     }
 
+    async getData(username, password) {
+        let data = Axios.get(`${SERVER_URL}/data`, {
+          auth: {
+            username: username,
+            password: password,
+          },
+        }).then(response => {
+          console.log(response)
+          return response;
+        })
+          .catch(error => console.log(error));
+        return data;
+    }
+
     onChange({ formData }) {
         this.setState({
             formData
@@ -108,7 +123,19 @@ class AdminPanel extends Component {
 
     // TODO: implement downloadData()
     downloadData() {
-        console.log("Clicked download!")
+        console.log("Clicked download!");
+ 
+        this.getData("arun", "arun").then((response) => {
+
+            let processedData = [];
+            for (let i = 0; i < response.data.length; i++) {
+                processedData.push(process(response.data[i].sessiondata, response.data[i].participantid));
+            }
+
+            for (let i = 0; i < processedData.length; i++) {
+                console.log(processedData[i]);
+            }
+         } );
     }
 
     renderPanel() {

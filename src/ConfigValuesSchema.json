@@ -49,6 +49,10 @@
         "conditionDColor": {
             "type": "string",
             "description": "Color for condition D"
+        },
+        "endMessage": {
+            "type": "string",
+            "description": "End message for the game."
         }
     },
     "required": [
@@ -63,6 +67,7 @@
         "conditionAColor",
         "conditionBColor",
         "conditionCColor",
-        "conditionDColor"
+        "conditionDColor",
+        "endMessage"
     ]
 }

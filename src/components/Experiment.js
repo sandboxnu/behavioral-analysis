@@ -2,7 +2,8 @@ import React from 'react';
 import './Experiment.css';
 import MatchingGame from './MatchingGame.js';
 import Warning from './Warning.js';
-import DataBuilder from './DataBuilder.js'
+import End from './End.js';
+import DataBuilder from  './DataBuilder.js'
 import ConfigValueController from '../ConfigValueController';
 import ServerUtils from '../ServerUtils';
 
@@ -19,7 +20,7 @@ class Experiment extends React.Component {
         super(props);
 
         let startCondition = this.props.condition;
-        this.isTutorial = this.startCondition === "tutorial"
+        this.isTutorial = startCondition === "tutorial"
         this.gameTime = 0;
         this.currentGameState = gameState.MATCHING_GAME;
         this.lopStart = ConfigValueController.getLossOfPointsStart();
@@ -39,9 +40,11 @@ class Experiment extends React.Component {
             condition: startCondition,
             warningEnabled: false,
             shouldShowIndicator: indicatorFlag,
+            isConditionOver: false,
         }
 
         dataCollector.setUserID(this.props.userId);
+        dataCollector.setCondition(this.props.condition);
         console.log("tutMode: " +  this.isTutorial);
     }
 
@@ -57,11 +60,13 @@ class Experiment extends React.Component {
     }
 
     onTick() {
-        if (this.gameTime > ConfigValueController.getConditionDuration()) {
-            console.log(dataCollector.getDataObject());
-            ServerUtils.sendData(dataCollector.getDataObject());
-            clearInterval(this.timerID);
-            // TODO: SHOW END GAME SCREEN
+        if (this.gameTime > ConfigValueController.getConditionDuration()) { 
+            if(!this.isTutorial) {
+                ServerUtils.sendData(dataCollector.getDataObject());
+                clearInterval(this.timerID);
+                this.endGame();
+                return;
+            } 
         }
 
         console.log(this.gameTime);
@@ -72,6 +77,7 @@ class Experiment extends React.Component {
                 this.toggleWarning();
                 this.currentGameState = gameState.WARNING;
                 console.log("Start Warning " + this.currentGameState);
+                dataCollector.addEvent("warningAppeared", this.gameTime);
             } else {
                 console.log("Warning Skipped");
             }
@@ -157,9 +163,10 @@ class Experiment extends React.Component {
             } else {
                 newScore = currScore + delta;
             }
-            if (currScore == 3) {
+            if (currScore == 19) {
                 newScore = 0;
-                this.props.tutorialCallBack();
+                console.log("GAME ENDS!!!!!!!!!")
+                this.endGame();
             }
         } else {
             newScore = currScore + delta;
@@ -171,7 +178,7 @@ class Experiment extends React.Component {
 
     matchingGameCallback = (isCorrect) => {
         if (isCorrect) {
-            dataCollector.addEvent("anweredCorrectly", this.gameTime);
+            dataCollector.addEvent("answeredCorrectly", this.gameTime);
         } else {
             dataCollector.addEvent("answeredWrong", this.gameTime);
         }
@@ -221,7 +228,20 @@ class Experiment extends React.Component {
         }
     }
 
+    endGame() {
+        this.setState({
+            isConditionOver: true
+        });
+    }
+
     render() {
+        if (this.state.isConditionOver) {
+            return ( 
+                <div>
+                    <End endScore={this.state.score}/>
+                </div>
+            );
+        }
         return (
             <div>
                 <div
