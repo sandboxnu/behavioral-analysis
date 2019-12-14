@@ -13,6 +13,34 @@ class ServerUtils {
      .catch(error => console.log(error));
   }
 
+  async getData(username, password) {
+    let data = Axios.get(`${SERVER_URL}/data`, {
+      auth: {
+        username: username,
+        password: password,
+      },
+    }).then(response => {
+      console.log(response)
+      return response;
+    })
+      .catch(error => console.log(error));
+    return data;
+}
+
+async getDataforUser(username, password, user) {
+  let data = Axios.get(`${SERVER_URL}/data/${user}`, {
+    auth: {
+      username: username,
+      password: password,
+    },
+  }).then(response => {
+    console.log(response)
+    return response;
+  })
+    .catch(error => console.log(error));
+  return data;
+}
+
   getServerUrl() {
     return SERVER_URL;
   }

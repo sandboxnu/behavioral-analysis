@@ -25,17 +25,17 @@ function process(allData, participantid) {
     processedData.participantid = participantid;
     processedData.condition = condition;
 
-    processedData.questionToAnswerTimes = questionAnswerTime;
-    processedData.questionToAnswerAverage = avgQuestionAnswerTime;
+    processedData.questionToAnswerTimes = "'" + questionAnswerTime.toString() + "'";
+    processedData.questionToAnswerAverage = avgQuestionAnswerTime.toString();
 
-    processedData.questionAnswerWrongAvg = questionAnswerWrongAvg;
-    processedData.questionAnswerCorrectAvg = questionAnswerCorrectAvg;
+    processedData.questionAnswerWrongAvg = +questionAnswerWrongAvg.toString();
+    processedData.questionAnswerCorrectAvg = questionAnswerCorrectAvg.toString();
 
-    processedData.trialToTrialTimes = trialTime;
-    processedData.trialToTrialAverage = avgTrialTime;
+    processedData.trialToTrialTimes =  "'" + trialTime.toString() + "'";
+    processedData.trialToTrialAverage = avgTrialTime.toString();
 
-    processedData.warningToInteractionTimes = warningInteractionTime;
-    processedData.warningToInteractionAverage = avgWarningInteractionTime;
+    processedData.warningToInteractionTimes = + "'" + warningInteractionTime.toString() + "'";
+    processedData.warningToInteractionAverage = avgWarningInteractionTime.toString();
 
     return processedData;
 }

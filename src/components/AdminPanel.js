@@ -35,9 +35,32 @@ class UserIdForm extends Component {
         this.setState({value: e.target.value});
     }
 
+    async getDataforUser(username, password, user) {
+        let data = Axios.get(`${SERVER_URL}/data/${user}`, {
+          auth: {
+            username: username,
+            password: password,
+          },
+        }).then(response => {
+          console.log(response)
+          return response;
+        })
+          .catch(error => console.log(error));
+        return data;
+      }
+
     handleSubmit(e) {
         console.log(this.state.value);
         e.preventDefault();
+
+        this.getDataforUser(this.props.username, this.props.password, e).then((response) => {
+            let processedData = [];
+            for (let i = 0; i < response.data.length; i++) {
+                processedData.push(process(response.data[i].sessiondata, response.data[i].participantid));
+            }
+
+            CSVUtils.JSONToCSVConvertor(processedData, 'Behavior Analysis Data', true);
+         } );
     }
 
     render() {
@@ -66,7 +89,6 @@ class AdminPanel extends Component {
           };
     }
 
-    // TODO: post form data, add authenication
     onSubmit({ formData }) {
         Axios.post(`${SERVER_URL}/config`, formData, {
             auth: {
@@ -122,7 +144,6 @@ class AdminPanel extends Component {
         });
       }
 
-    // TODO: implement downloadData()
     downloadData() {
         console.log("Clicked download!");
  
@@ -131,6 +152,8 @@ class AdminPanel extends Component {
             for (let i = 0; i < response.data.length; i++) {
                 processedData.push(process(response.data[i].sessiondata, response.data[i].participantid));
             }
+            processedData.sort((a, b) => (a.participantid < b.participantid) ? 1 : -1)
+
 
             CSVUtils.JSONToCSVConvertor(processedData, 'Behavior Analysis Data', true);
          } );
@@ -151,7 +174,9 @@ class AdminPanel extends Component {
                         </DownloadButton>
                         <hr/>
                         <h2>Download data for given userId</h2>
-                        <UserIdForm/>
+                        <UserIdForm
+                            username={this.state.username}
+                            password={this.state.password}/>
                         <hr/>
                         <h2>Configure Experiment</h2>
                         <Form   
