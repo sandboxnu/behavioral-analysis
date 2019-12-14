@@ -46,7 +46,7 @@ class End extends Component {
       <Screen>
         <ScreenContainer>
           <Title> Behavioral Analysis</Title>
-          <Subtitle>{daString}<br />Please contact your researcher.</Subtitle>
+          <Subtitle>{daString}</Subtitle>
           <InfoBox>Score:{' '}{this.props.endScore}</InfoBox>
         </ScreenContainer>
       </Screen>
