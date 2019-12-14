@@ -24,7 +24,6 @@ class Experiment extends React.Component {
         this.gameTime = 0;
         this.currentGameState = gameState.MATCHING_GAME;
         this.lopStart = ConfigValueController.getLossOfPointsStart();
-        console.log(this.lopStart);
         this.interactedWithWarningFlag = false;
         this.indicatorShowingTimer = 0;
         let indicatorFlag = false;
@@ -45,7 +44,6 @@ class Experiment extends React.Component {
 
         dataCollector.setUserID(this.props.userId);
         dataCollector.setCondition(this.props.condition);
-        console.log("tutMode: " +  this.isTutorial);
     }
 
     componentDidMount() {
@@ -62,7 +60,7 @@ class Experiment extends React.Component {
     onTick() {
         if (this.gameTime > ConfigValueController.getConditionDuration()) { 
             if(!this.isTutorial) {
-                ServerUtils.sendData(dataCollector.getDataObject());
+                ServerUtils.sendData(dataCollector.getDataObject(this.state.score));
                 clearInterval(this.timerID);
                 this.endGame();
                 return;
@@ -102,7 +100,6 @@ class Experiment extends React.Component {
     }
 
     updateGameValues() {
-        console.log("Update game values: " + this.currentGameState);
         dataCollector.addEvent("update", this.gameTime);
         if (this.isSwitchOverConditions() && this.state.shouldShowIndicator) {
             this.indicatorShowingTimer += 1;
@@ -151,7 +148,6 @@ class Experiment extends React.Component {
 
     setNewLOPTime() {
         this.lopStart = this.gameTime + ConfigValueController.getLossOfPointsStart();
-        console.log("New LOP START" + this.lopStart);
     }
 
     scoreDeltaCallback = (delta) => {
@@ -211,6 +207,10 @@ class Experiment extends React.Component {
     }
 
     toggleWarning() {
+        if (this.isTutorial) {
+            return;
+        }
+
         this.setState({
             warningEnabled: !this.state.warningEnabled
         })
