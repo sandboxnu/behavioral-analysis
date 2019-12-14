@@ -27,11 +27,14 @@ class DataBuilder {
         this.condition = condition;
     }
 
-    getDataObject() {
+    getDataObject(score) {
+        const conditionTime = ConfigValueController.getConditionDuration();
         this.obj.participantId = this.userId;
         this.data.condition = this.condition;
         this.data.events = this.events;
+        this.data.pointsps = score/conditionTime;
         this.obj.data = this.data;
+        
         
         return this.obj;
     }

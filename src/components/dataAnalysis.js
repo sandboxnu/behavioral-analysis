@@ -5,6 +5,7 @@ function process(allData, participantid) {
     // copy the data to avoid mutation
     let data = allData.events.slice();
     let condition = allData.condition;
+    let pointsps = allData.pointsps;
     // console.log(data);
 
     // get arrays of the times we want collected
@@ -24,17 +25,14 @@ function process(allData, participantid) {
     let processedData = {};
     processedData.participantid = participantid;
     processedData.condition = condition;
+    processedData.pointsPerSecond = pointsps;
 
-    processedData.questionToAnswerTimes = "'" + questionAnswerTime.toString() + "'";
     processedData.questionToAnswerAverage = avgQuestionAnswerTime.toString();
-
-    processedData.questionAnswerWrongAvg = +questionAnswerWrongAvg.toString();
+    processedData.questionAnswerWrongAvg = questionAnswerWrongAvg.toString();
     processedData.questionAnswerCorrectAvg = questionAnswerCorrectAvg.toString();
 
-    processedData.trialToTrialTimes =  "'" + trialTime.toString() + "'";
     processedData.trialToTrialAverage = avgTrialTime.toString();
 
-    processedData.warningToInteractionTimes = + "'" + warningInteractionTime.toString() + "'";
     processedData.warningToInteractionAverage = avgWarningInteractionTime.toString();
 
     return processedData;

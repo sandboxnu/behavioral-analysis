@@ -154,7 +154,6 @@ class AdminPanel extends Component {
             }
             processedData.sort((a, b) => (a.participantid < b.participantid) ? 1 : -1)
 
-
             CSVUtils.JSONToCSVConvertor(processedData, 'Behavior Analysis Data', true);
          } );
     }
