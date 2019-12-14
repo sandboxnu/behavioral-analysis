@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, {keyframes} from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const slide = keyframes`
     100% {
@@ -43,9 +43,9 @@ class Indicator extends React.Component {
         if (this.props.shouldShowIndicator) {
             this.props.parentCallbackIndicatorAppeared();
             return (
-                <IndicatorButton 
-                    textColor="white" 
-                    backgroundColor="lightsteelblue" 
+                <IndicatorButton
+                    textColor="white"
+                    backgroundColor="lightsteelblue"
                     className="indicatorButton" onClick={() => this.sendIndicatorInteraction()}>
                 </IndicatorButton>
             )
@@ -53,11 +53,15 @@ class Indicator extends React.Component {
     }
 
     render() {
-        return (
-            <div>
-                {this.renderIndicator()}
-            </div>
-        );
+        if (!this.props.tutorialMode) {
+            return (
+                <div>
+                    {this.renderIndicator()}
+                </div>
+            );
+        } else {
+            return null;
+        }
     }
 }
 

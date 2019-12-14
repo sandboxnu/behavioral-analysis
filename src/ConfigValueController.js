@@ -98,6 +98,8 @@ class ConfigValuesController {
                 break;
             case "D":
                 return this.conditionDColor;
+            case "tutorial":
+                return "white";
         }
     }
 

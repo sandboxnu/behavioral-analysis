@@ -12,22 +12,26 @@ class Warning extends React.Component {
     }
 
     render() {
-        let playStatus = Sound.status.STOPPED;
-        if (this.props.isWarningEnabled) {
-            playStatus = Sound.status.PLAYING;
+        if (!this.props.tutorialMode) {
+            let playStatus = Sound.status.STOPPED;
+            if (this.props.isWarningEnabled) {
+                playStatus = Sound.status.PLAYING;
+            }
+            return (
+                <div>
+                    <Sound
+                        url={soundfile}
+                        playStatus={playStatus}
+                        playFromPosition={0 /* in milliseconds */}
+                        onLoading={this.handleSongLoading}
+                        onPlaying={this.handleSongPlaying}
+                        onFinishedPlaying={this.handleSongFinishedPlaying}
+                    />
+                </div>
+            )
+        } else {
+            return null;
         }
-        return (
-            <div>
-                <Sound 
-                    url={soundfile}
-                    playStatus={playStatus}
-                    playFromPosition={0 /* in milliseconds */}
-                    onLoading={this.handleSongLoading}
-                    onPlaying={this.handleSongPlaying}
-                    onFinishedPlaying={this.handleSongFinishedPlaying}
-                />
-            </div>                
-        )
     }
 }
 

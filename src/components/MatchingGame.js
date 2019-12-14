@@ -1,7 +1,7 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Indicator from './Indicator.js';
-import styled, {keyframes} from 'styled-components';
+import styled, { keyframes } from 'styled-components';
 
 const images = ["coffee", "rocket", "check-square", "piggy-bank", "ad", "address-book", "air-freshener", "allergies", "ambulance", "american-sign-language-interpreting", "anchor", "angle-double-down", "angry", "ankh", "apple-alt", "arrow-alt-circle-down", "assistive-listening-systems", "asterisk", "at", "atom", "award", "baby", "baby-carriage", "bacon", "balance-scale", "balance-scale-left", "baseball-ball", "bath", "battery-empty", "bed", "beer", "bell", "biking", "binoculars", "biohazard", "birthday-cake", "blender", "blind", "bolt", "bomb", "bone", "bong", "bug", "building", "bullhorn", "burn", "bus", "camera", "campground", "candy-cane", "cannabis", "capsules", "car", "cash-register", "cat", "charging-station", "chart-pie", "chess-bishop", "clinic-medical", "cloud-moon", "cocktail", "code-branch", "cogs", "coins", "comment-dollar", "crow", "crown", "cubes", "cut", "democrat", "divide", "dove", "dragon", "dungeon", "feather", "feather-alt", "fill-drip", "fish", "football-ball", "gamepad", "gas-pump", "gavel", "gem", "ghost", "gift", "glass-cheers", "glasses", "globe-africa", "graduation-cap", "hamburger", "hand-holding-heart", "handshake", "hashtag", "hat-cowboy", "headphones-alt", "helicopter", "hiking", "hippo", "hotdog", "hourglass-end", "icons", "igloo", "key", "laptop"];
 
@@ -76,7 +76,7 @@ class MatchingGame extends React.Component {
         super(props);
         let randImage = this.getRandomImage();
         this.state = {
-          topImage: randImage,
+            topImage: randImage,
         };
 
         this.otherImages = images.filter(image => image !== this.state.topImage);
@@ -87,9 +87,9 @@ class MatchingGame extends React.Component {
 
     renderImage(image) {
         return (
-        <BottomImage>
-            <FontAwesomeIcon icon={image} onClick={() => this.handleClick(image)}/>
-        </BottomImage>)
+            <BottomImage>
+                <FontAwesomeIcon icon={image} onClick={() => this.handleClick(image)} />
+            </BottomImage>)
     }
 
     handleClick(image) {
@@ -110,7 +110,7 @@ class MatchingGame extends React.Component {
 
     refresh() {
         const randImage = this.getRandomImage();
-        this.setState({topImage : randImage});
+        this.setState({ topImage: randImage });
         let filtered = images.filter(image => image !== randImage);
         this.otherImages = filtered;
         this.shuffle(this.otherImages);
@@ -123,7 +123,7 @@ class MatchingGame extends React.Component {
     }
 
     getRandomImage() {
-        return images[Math.floor(Math.random()*images.length)];
+        return images[Math.floor(Math.random() * images.length)];
     }
 
     onClickContainer(e) {
@@ -132,32 +132,33 @@ class MatchingGame extends React.Component {
     }
 
     render() {
-        return (
-            <div id="backgroundContainer" className="backgroundContainer">
-                <MatchingGameContainer onClick={this.onClickContainer}>
-                    <Indicator 
-                        condition={this.props.condition} 
-                        parentCallbackIndicator={this.props.parentCallbackIndicator}
-                        parentCallbackIndicatorAppeared={this.props.indicatorAppeared}
-                        shouldShowIndicator={this.props.shouldShowIndicator}
-                    />
-                    <Score>
-                        <div style={scoreTitle}>SCORE</div>
-                        <div style={scoreNumber}> {this.props.score}</div>
-                    </Score>
-                    <TopImage>
-                        <FontAwesomeIcon icon={this.state.topImage}/>
-                    </TopImage>
-                    <BottomImageContainer>
-                        {this.renderImage(this.allImages[0])}
-                        {this.renderImage(this.allImages[1])}
-                        {this.renderImage(this.allImages[2])}
-                    </BottomImageContainer>
-                </MatchingGameContainer>
-            </div>
-            
-        );
+            return (
+                <div id="backgroundContainer" className="backgroundContainer">
+                    <MatchingGameContainer onClick={this.onClickContainer}>
+                        <Indicator
+                            condition={this.props.condition}
+                            parentCallbackIndicator={this.props.parentCallbackIndicator}
+                            parentCallbackIndicatorAppeared={this.props.indicatorAppeared}
+                            shouldShowIndicator={this.props.shouldShowIndicator}
+                            tutorialMode={this.props.tutorialMode}
+                        />
+                        <Score>
+                            <div style={scoreTitle}>SCORE</div>
+                            <div style={scoreNumber}> {this.props.score}</div>
+                        </Score>
+                        <TopImage>
+                            <FontAwesomeIcon icon={this.state.topImage} />
+                        </TopImage>
+                        <BottomImageContainer>
+                            {this.renderImage(this.allImages[0])}
+                            {this.renderImage(this.allImages[1])}
+                            {this.renderImage(this.allImages[2])}
+                        </BottomImageContainer>
+                    </MatchingGameContainer>
+                </div>
+
+            );
     }
 }
 
-  export default MatchingGame
+export default MatchingGame
