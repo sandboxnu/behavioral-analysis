@@ -6,6 +6,7 @@ function process(allData, participantid) {
     let data = allData.events.slice();
     let condition = allData.condition;
     let pointsps = allData.pointsps;
+    let score = allData.score;
     // console.log(data);
 
     // get arrays of the times we want collected
@@ -16,27 +17,52 @@ function process(allData, participantid) {
 
     // compute the averages
     let avgQuestionAnswerTime = average(questionAnswerTime);
+    let medianQuestionAnswerTime = median(questionAnswerTime);
     let avgTrialTime = average(trialTime);
+    let medianTrialTime = median(trialTime);
     let avgWarningInteractionTime = average(warningInteractionTime)
-    let questionAnswerWrongAvg = average(timeBetween("questionAppeared", "answeredWrong", "answeredWrong", data));
-    let questionAnswerCorrectAvg = average(timeBetween("questionAppeared", "answeredCorrectly", "answeredCorrectly", data));
+    let medianWarningInteractionTime = median(warningInteractionTime)
+    let avgQuestionAnswerWrong = average(timeBetween("questionAppeared", "answeredWrong", "answeredWrong", data));
+    let medianQuestionAnswerWrong= median(timeBetween("questionAppeared", "answeredWrong", "answeredWrong", data));
+    let avgQuestionAnswerCorrect = average(timeBetween("questionAppeared", "answeredCorrectly", "answeredCorrectly", data));
+    let medianQuestionAnswerCorrect = median(timeBetween("questionAppeared", "answeredCorrectly", "answeredCorrectly", data));
+
 
     // json data structure to send back
     let processedData = {};
     processedData.participantid = participantid;
     processedData.condition = condition;
     processedData.pointsPerSecond = pointsps;
+    processedData.score = score;
 
     processedData.questionToAnswerAverage = avgQuestionAnswerTime.toString();
-    processedData.questionAnswerWrongAvg = questionAnswerWrongAvg.toString();
-    processedData.questionAnswerCorrectAvg = questionAnswerCorrectAvg.toString();
-
+    processedData.questionAnswerWrongAverage = avgQuestionAnswerWrong.toString();
+    processedData.questionAnswerCorrectAverage = avgQuestionAnswerCorrect.toString();
     processedData.trialToTrialAverage = avgTrialTime.toString();
-
     processedData.warningToInteractionAverage = avgWarningInteractionTime.toString();
+    processedData.questionToAnswerMedian = medianQuestionAnswerTime.toString();
+    processedData.questionAnswerWrongMedian = medianQuestionAnswerWrong.toString();
+    processedData.questionAnswerCorrectMedian = medianQuestionAnswerCorrect.toString();
+    processedData.trialToTrialMedian = medianTrialTime.toString();
+    processedData.warningToInteractionMedian = medianWarningInteractionTime.toString();
 
     return processedData;
 }
+
+function median(values){
+    if(values.length ===0) return 0;
+  
+    values.sort(function(a,b){
+      return a-b;
+    });
+  
+    var half = Math.floor(values.length / 2);
+  
+    if (values.length % 2)
+      return values[half];
+  
+    return (values[half - 1] + values[half]) / 2.0;
+  }
 
 // returns an array containing the times between an initial event and ending event for all of the data
 // there are 2 ending events for the case of a question appearing and it being answered so both can be passed in

@@ -100,7 +100,6 @@ class Experiment extends React.Component {
     }
 
     updateGameValues() {
-        console.log("Update game values: " + this.currentGameState);
         dataCollector.addEvent("update", this.gameTime);
         if (this.isSwitchOverConditions() && this.state.shouldShowIndicator) {
             this.indicatorShowingTimer += 1;
@@ -149,7 +148,6 @@ class Experiment extends React.Component {
 
     setNewLOPTime() {
         this.lopStart = this.gameTime + ConfigValueController.getLossOfPointsStart();
-        console.log("New LOP START" + this.lopStart);
     }
 
     scoreDeltaCallback = (delta) => {
@@ -209,6 +207,10 @@ class Experiment extends React.Component {
     }
 
     toggleWarning() {
+        if (this.isTutorial) {
+            return;
+        }
+
         this.setState({
             warningEnabled: !this.state.warningEnabled
         })

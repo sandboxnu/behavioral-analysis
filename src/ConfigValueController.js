@@ -99,7 +99,7 @@ class ConfigValuesController {
             case "D":
                 return this.conditionDColor;
             case "tutorial":
-                return "white";
+                return "#F5F6F4";
         }
     }
 
