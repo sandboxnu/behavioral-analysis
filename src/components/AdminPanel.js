@@ -137,16 +137,14 @@ class AdminPanel extends Component {
     }
 
     onLogin(username, password) {
-        this.setState({
-            authenticated: true,
-            username,
-            password
-        });
-      }
+      this.setState({
+          authenticated: true,
+          username,
+          password
+      });
+    }
 
-    downloadData() {
-        console.log("Clicked download!");
- 
+    downloadData() { 
         this.getData(this.state.username, this.state.password).then((response) => {
             let processedData = [];
             for (let i = 0; i < response.data.length; i++) {
