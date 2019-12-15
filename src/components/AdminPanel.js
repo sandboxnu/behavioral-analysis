@@ -23,6 +23,11 @@ const DownloadButton = styled.button`
   margin-bottom: '20'
 `;
 
+const SubmitStatus = styled.p`
+  padding-top: '25px',
+  padding-bottom: '25px'
+`;
+
 class UserIdForm extends Component {
     constructor(props) {
       super(props);
@@ -63,6 +68,8 @@ class AdminPanel extends Component {
             authenticated: false,
             username: null,
             password: null,
+            renderSubmitStatus: false,
+            submitMsg: null,
           };
     }
 
@@ -72,8 +79,17 @@ class AdminPanel extends Component {
             username: this.state.username,
             password: this.state.password,
           },
-        }).then(() => this.setState({ configOnServer: formData }))
-          .catch(error => console.log(error));
+        }).then(() => this.setState({ 
+          configOnServer: formData,
+          renderSubmitStatus: true,
+          submitMsg: "Submitted Successfully" 
+        })) .catch(error => {
+          console.log(error);
+          this.setState({
+            renderSubmitStatus: true,
+            submitMsg: "Error Submitting"
+          })
+        });
     }
 
     onChange({ formData }) {
@@ -157,6 +173,7 @@ class AdminPanel extends Component {
                             onChange={f => this.onChange(f)}
                             onSubmit={f => this.onSubmit(f)}
                         />
+                        <SubmitStatus> {this.state.submitMsg} </SubmitStatus>
                     </PanelContainer>
                 </Fetch>
           </div>
